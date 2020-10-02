@@ -33,5 +33,6 @@
 
 #Directories for stuff
 build/
-.vscode/
 .clangd/
+.vscode/**
+.vscode/

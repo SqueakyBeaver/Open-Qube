@@ -11,6 +11,9 @@
 class Qube
 {
 public:
+    //Default constructor
+    Qube();
+
     //initial coordinates, length, and width
     Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window);
 
