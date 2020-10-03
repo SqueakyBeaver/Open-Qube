@@ -12,9 +12,6 @@ PUT MOST STUFF IN A CLASS
 #include "Qube.hpp"
 #include "Enemy.hpp"
 
-#include <cassert>  //for assert
-#include <iostream> //need to debug
-
 //Uncomment when doing release
 //#define NDEBUG
 

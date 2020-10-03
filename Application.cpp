@@ -12,7 +12,7 @@ Application::Application() : window(sf::VideoMode::getFullscreenModes()[0], "Qub
                              enemy(40, 5, sf::Color(50, 70, 180), 3,
                                    sf::Vector2f(window.getView().getSize().x / 2 + 50,
                                                 window.getView().getSize().y / 2)),
-                            modes(), calibri(), run_dir(0, 0), player_info(), start_text(), resized_view()
+                             modes(), calibri(), run_dir(0, 0), player_info(), start_text(), resized_view()
 {
     if (!calibri.loadFromFile("../calibri.ttf"))
         std::exit(2);
@@ -27,7 +27,7 @@ Application::Application() : window(sf::VideoMode::getFullscreenModes()[0], "Qub
     player_info.setFillColor(sf::Color(255, 60, 17));
     start_text.setFillColor(sf::Color(60, 178, 200));
 
-    modes= sf::VideoMode::getFullscreenModes();
+    modes = sf::VideoMode::getFullscreenModes();
 
     window.setVerticalSyncEnabled(true);
 }
@@ -96,21 +96,13 @@ void Application::loopGame()
             run_dir.y += RUN_DISTANCE;
 
         qube.regenerate(); //Pwease work?
-
         qube.health_bar.update(100, qube.getHealth());
 
         qube.spin();
         qube.run(run_dir);
         enemy.spin();
 
-        window.clear(sf::Color(138, 127, 128, 200));
-
-        window.draw(qube.qube_hero);
-        window.draw(enemy.enemy_body);
-        window.draw(qube.health_bar);
-        window.draw(player_info);
-
-        window.display();
+        drawEntities();
 
         while (!started)
         {
@@ -120,4 +112,15 @@ void Application::loopGame()
             started = Keyboard::isKeyPressed(Keyboard::Key::Space);
         }
     }
+}
+
+void Application::drawEntities()
+{
+    window.clear(sf::Color(138, 127, 128, 200));
+
+    window.draw(qube);
+    window.draw(enemy);
+    window.draw(player_info);
+
+    window.display();
 }

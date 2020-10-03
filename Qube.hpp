@@ -8,7 +8,7 @@
 
 #include "HealthBar.hpp"
 
-class Qube
+class Qube : public sf::Drawable
 {
 public:
     //Default constructor
@@ -23,8 +23,11 @@ public:
     //Sprite for the hero
     sf::Sprite qube_hero{};
 
-    //Health meter
+    //Large health meter
     HealthBar health_bar;
+
+    //Smaller entity health bar
+    HealthBar health_meter;
 
     //run in a direction
     void run(sf::Vector2f &run_for);
@@ -48,6 +51,9 @@ public:
     };
 
 protected:
+    //Radius of sprite
+    float radius{40};
+
     //Is it healing??
     bool healing{false};
 
@@ -66,6 +72,14 @@ protected:
 
     //Where to load sprite from
     sf::Texture hero_texture;
+
+private:
+    virtual void draw(sf::RenderTarget &target, sf::RenderStates states = sf::RenderStates::Default) const
+    {
+        target.draw(qube_hero, states);
+        target.draw(health_bar, states);
+        target.draw(health_meter, states);
+    }
 };
 
 #endif

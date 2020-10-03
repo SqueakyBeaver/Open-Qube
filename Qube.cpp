@@ -6,7 +6,9 @@
 
 #include <iostream> //need to debug
 
-Qube::Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window) : coordinates(coords), health_bar(draw_window), hero_texture()
+Qube::Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window)
+    : coordinates(coords), health_bar(draw_window), health_meter(coords, 40), hero_texture()
+
 {
 
     if (!hero_texture.loadFromFile(file))
@@ -16,7 +18,7 @@ Qube::Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window)
     else
     {
         qube_hero.setTexture(hero_texture);
-        qube_hero.setOrigin(40, 40);
+        qube_hero.setOrigin(radius, radius);
         qube_hero.setPosition(coords);
     }
     health = 100;
@@ -57,6 +59,7 @@ void Qube::run(sf::Vector2f &run_for)
         }
     }
     coordinates = qube_hero.getPosition();
+    health_meter.update(max_health, health, coordinates, radius);
     run_for = sf::Vector2f(0, 0);
 }
 
@@ -94,7 +97,10 @@ void Qube::spin()
         {
             rotate_speed -= 1.5;
             if (rotated_for >= 115 && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl))
-                health -= .2;
+            {
+                if (health > 0)
+                    health -= .2;
+            }
         }
         if (!rotate_speed || rotate_speed < 1)
         {

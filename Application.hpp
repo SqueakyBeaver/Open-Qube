@@ -5,6 +5,10 @@
 #include <vector>
 #include <cstdlib>
 
+#ifndef NDEBUG
+#include <cassert>
+#endif
+
 #include "Qube.hpp"
 #include "Enemy.hpp"
 
@@ -16,6 +20,8 @@ public:
 
     //Main game loop
     void loopGame();
+
+    void drawEntities();
 
     //end the game
     ~Application() = default;
@@ -32,15 +38,13 @@ private:
 
     //If the window is resized
     bool resized{};
-    
+
     //Whether the game has started
     bool started{};
-
 
     //Modes
     std::vector<sf::VideoMode> modes;
 
-    
     //Font
     sf::Font calibri;
 
