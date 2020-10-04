@@ -118,7 +118,6 @@ void Qube::spin()
 void Qube::regenerate()
 {
     static sf::Time regen_start = sf::seconds(max_health / 20 / level);
-    //static sf::Time regen_period = sf::seconds(.5f);
     static sf::Clock regen_timer;
 
     if (!healing && health < max_health && regen_timer.getElapsedTime() >= regen_start)

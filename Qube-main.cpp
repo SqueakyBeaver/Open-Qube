@@ -1,7 +1,6 @@
 /*
 TODO:
-MAKE MAIN SHORTER
-PUT MOST STUFF IN A CLASS
+HIT DETECTION
 */
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -9,11 +8,13 @@ PUT MOST STUFF IN A CLASS
 #include <vector>
 
 #include "Application.hpp"
-#include "Qube.hpp"
 #include "Enemy.hpp"
+#include "Qube.hpp"
 
 //Uncomment when doing release
 //#define NDEBUG
+
+
 
 int main()
 {

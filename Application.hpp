@@ -21,7 +21,11 @@ public:
     //Main game loop
     void loopGame();
 
+    //Draw the drawable things
     void drawEntities();
+
+    //Move the window
+    void moveView(const sf::Vector2f &move_dir);
 
     //end the game
     ~Application() = default;

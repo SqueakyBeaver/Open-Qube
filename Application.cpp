@@ -7,14 +7,14 @@ const float RUN_DISTANCE{5};
 Application::Application() : window(sf::VideoMode::getFullscreenModes()[0], "Qube's Adventure",
                                     sf::Style::Fullscreen),
 
-                             qube(sf::Vector2f(40, window.getView().getSize().y / 2), "../Qube-hero.png", window),
+                             qube(sf::Vector2f(40, window.getView().getSize().y / 2), "Qube-hero.png", window),
 
                              enemy(40, 5, sf::Color(50, 70, 180), 3,
                                    sf::Vector2f(window.getView().getSize().x / 2 + 50,
                                                 window.getView().getSize().y / 2)),
                              modes(), calibri(), run_dir(0, 0), player_info(), start_text(), resized_view()
 {
-    if (!calibri.loadFromFile("../calibri.ttf"))
+    if (!calibri.loadFromFile("calibri.ttf"))
         std::exit(2);
 
     start_text.setFont(calibri);
@@ -102,6 +102,8 @@ void Application::loopGame()
         qube.run(run_dir);
         enemy.spin();
 
+        moveView(run_dir); //Need to rework some stuff
+
         drawEntities();
 
         while (!started)
@@ -123,4 +125,22 @@ void Application::drawEntities()
     window.draw(player_info);
 
     window.display();
+}
+
+void Application::moveView(const sf::Vector2f &move_dir)
+{
+    sf::View view = window.getView();
+    if (qube.coordinates.x + move_dir.x >= window.getView().getSize().x)
+        view.move(100, 0);
+
+    if (qube.coordinates.x + move_dir.x <= 0)
+        view.move(-100, 0);
+
+    if (qube.coordinates.y + move_dir.y >= window.getView().getSize().y)
+        view.move(0, 100);
+
+    if (qube.coordinates.y + move_dir.y <= 0)
+        view.move(0, -100);
+    
+    window.setView(view);
 }
