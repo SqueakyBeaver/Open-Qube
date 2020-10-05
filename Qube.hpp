@@ -6,27 +6,23 @@
 #include <cstdlib> //std::exit
 #include <string>
 
+#include "Entity.hpp"
 #include "HealthBar.hpp"
 
-class Qube : public sf::Drawable {
+class Qube : public sf::Drawable, public Entity {
 public:
     // Default constructor
     Qube();
 
     // initial coordinates, length, and width
-    Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window);
-
-    // Qube's coordinates
-    sf::Vector2f coordinates;
+    Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window,
+         int lvl);
 
     // Sprite for the hero
     sf::Sprite qube_hero{};
 
     // Large health meter
     HealthBar health_bar;
-
-    // Smaller entity health bar
-    HealthBar health_meter;
 
     // run in a direction
     void run(sf::Vector2f &run_for);
@@ -49,23 +45,10 @@ public:
     };
 
 protected:
-    // Radius of sprite
-    float radius{40};
-
     // Is it healing??
     bool healing{false};
 
-    // Hero's max health
-    float max_health{};
-
-    // Hero's current health
-    float health{};
-
-    // Hero's current level
-    unsigned int level{1};
-
-    // Spinning stuff
-    bool spinning{};
+    // Angle of direction Qube is facing
     float angle_rotation{};
 
     // Where to load sprite from

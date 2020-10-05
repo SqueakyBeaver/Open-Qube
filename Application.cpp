@@ -9,11 +9,12 @@ Application::Application()
              sf::Style::Fullscreen),
 
       qube(sf::Vector2f(40, window.getView().getSize().y / 2), "Qube-hero.png",
-           window),
+           window, 1),
 
       enemy(40, 5, sf::Color(50, 70, 180), 3,
             sf::Vector2f(window.getView().getSize().x / 2 + 50,
                          window.getView().getSize().y / 2)),
+
       modes(), calibri(), run_dir(0, 0), player_info(), start_text(),
       resized_view() {
     if (!calibri.loadFromFile("calibri.ttf"))
@@ -132,16 +133,16 @@ void Application::drawEntities() {
 
 void Application::moveView(const sf::Vector2f &move_dir) {
     sf::View view = window.getView();
-    if (qube.coordinates.x + move_dir.x >= window.getView().getSize().x)
+    if (qube.getCoordinates().x + move_dir.x >= window.getView().getSize().x)
         view.move(100, 0);
 
-    if (qube.coordinates.x + move_dir.x <= 0)
+    if (qube.getCoordinates().x + move_dir.x <= 0)
         view.move(-100, 0);
 
-    if (qube.coordinates.y + move_dir.y >= window.getView().getSize().y)
+    if (qube.getCoordinates().y + move_dir.y >= window.getView().getSize().y)
         view.move(0, 100);
 
-    if (qube.coordinates.y + move_dir.y <= 0)
+    if (qube.getCoordinates().y + move_dir.y <= 0)
         view.move(0, -100);
 
     window.setView(view);

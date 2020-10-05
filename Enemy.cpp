@@ -2,11 +2,8 @@
 
 Enemy::Enemy(unsigned int radius, unsigned int points, sf::Color body_color,
              unsigned int lvl, sf::Vector2f coords)
-    : enemy_body(radius, points), health_meter(coords, radius), level(lvl),
-      max_health(lvl * 25), health(max_health), coordinates(coords),
-      radius(radius)
-
-{
+    : Entity(coords, radius, "Enemy", lvl, (lvl * 25)),
+      enemy_body(radius, points) {
     body_color.a = 230;
     enemy_body.setFillColor(body_color);
     enemy_body.setOutlineColor(sf::Color(0, 0, 0, 175));

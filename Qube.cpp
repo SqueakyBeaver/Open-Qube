@@ -6,8 +6,9 @@
 
 #include <iostream> //need to debug
 
-Qube::Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window)
-    : coordinates(coords), health_bar(draw_window), health_meter(coords, 40),
+Qube::Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window,
+           int lvl)
+    : Entity(coords, 40, "Player", lvl, 100), health_bar(draw_window),
       hero_texture()
 
 {
