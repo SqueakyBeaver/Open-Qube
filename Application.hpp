@@ -2,66 +2,65 @@
 #define APPLICATION_HPP
 
 #include <SFML/Graphics.hpp>
-#include <vector>
 #include <cstdlib>
+#include <vector>
 
 #ifndef NDEBUG
 #include <cassert>
 #endif
 
-#include "Qube.hpp"
 #include "Enemy.hpp"
+#include "Qube.hpp"
 
-class Application
-{
+class Application {
 public:
-    //initialize the game
+    // initialize the game
     Application();
 
-    //Main game loop
+    // Main game loop
     void loopGame();
 
-    //Draw the drawable things
+    // Draw the drawable things
     void drawEntities();
 
-    //Move the window
+    // Move the window
     void moveView(const sf::Vector2f &move_dir);
 
-    //end the game
+    // end the game
     ~Application() = default;
 
 private:
-    //Window to draw to
+    // Window to draw to
     sf::RenderWindow window;
 
-    //The main character
+    // The main character
     Qube qube;
 
-    //The enemy
+    // The enemy
     Enemy enemy;
 
-    //If the window is resized
+    // If the window is resized
     bool resized{};
 
-    //Whether the game has started
+    // Whether the game has started
     bool started{};
 
-    //Modes
+    // Modes
     std::vector<sf::VideoMode> modes;
 
-    //Font
+    // Font
     sf::Font calibri;
 
-    //Running directions
+    // Running directions
     sf::Vector2f run_dir;
 
-    //Coordinates/Player info
+    // Coordinates/Player info
     sf::Text player_info;
 
-    //Starting text
+    // Starting text
     sf::Text start_text;
 
-    //View for a resized window
+    // View for a resized window
     sf::View resized_view;
 };
 

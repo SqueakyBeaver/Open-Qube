@@ -5,10 +5,10 @@
 
 #include "HealthBar.hpp"
 
-class Enemy : public sf::Drawable
-{
+class Enemy : public sf::Drawable {
 public:
-    Enemy(unsigned int radius, unsigned int points, sf::Color edge_color, unsigned int lvl, sf::Vector2f coords);
+    Enemy(unsigned int radius, unsigned int points, sf::Color edge_color,
+          unsigned int lvl, sf::Vector2f coords);
 
     sf::CircleShape enemy_body;
 
@@ -20,23 +20,24 @@ public:
     void spin();
 
 private:
-    //Level of enemy
+    // Level of enemy
     unsigned int level{};
 
-    //Enemy's max health
+    // Enemy's max health
     float max_health;
 
-    //Enemy's current health
+    // Enemy's current health
     float health{};
 
-    //Current coordinates of the enemy
+    // Current coordinates of the enemy
     sf::Vector2f coordinates;
 
-    //Radius of enemy
+    // Radius of enemy
     float radius{};
 
-    virtual void draw(sf::RenderTarget &target, sf::RenderStates states = sf::RenderStates::Default) const
-    {
+    virtual void
+    draw(sf::RenderTarget &target,
+         sf::RenderStates states = sf::RenderStates::Default) const {
         target.draw(enemy_body, states);
         target.draw(health_meter, states);
     }

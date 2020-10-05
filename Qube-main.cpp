@@ -11,13 +11,10 @@ HIT DETECTION
 #include "Enemy.hpp"
 #include "Qube.hpp"
 
-//Uncomment when doing release
+// Uncomment when doing release
 //#define NDEBUG
 
-
-
-int main()
-{
+int main() {
     Application game_application;
 
     game_application.loopGame();

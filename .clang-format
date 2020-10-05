@@ -1,0 +1,8 @@
+#Format based on my style
+BasedOnStyle: LLVM
+MaxEmptyLinesToKeep: 1
+#I apologise to those with very small screens
+IndentWidth: 4 
+#Maybe this will help a tiny bit
+AccessModifierOffset: -4
+AlwaysBreakAfterReturnType: None
