@@ -1,5 +1,3 @@
 #include "Entity.hpp"
 
-sf::Vector2f Entity::getCoordinates() {
-    return coordinates;
-}
+sf::Vector2f Entity::getCoordinates() { return coordinates; }

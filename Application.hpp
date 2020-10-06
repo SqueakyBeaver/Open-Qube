@@ -1,3 +1,8 @@
+/////////////////////////////////////////////
+// Class that holds main application works //
+// Really probably needs a rework          //
+/////////////////////////////////////////////
+
 #ifndef APPLICATION_HPP
 #define APPLICATION_HPP
 

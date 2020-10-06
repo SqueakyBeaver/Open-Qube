@@ -1,3 +1,8 @@
+///////////////////////////////
+// Class for all the enemies //
+// Probably needs a rework   //
+///////////////////////////////
+
 #ifndef ENEMY_HPP
 #define ENEMY_HPP
 

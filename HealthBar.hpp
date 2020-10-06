@@ -1,3 +1,7 @@
+///////////////////////////////
+// Class for any health bars //
+///////////////////////////////
+
 #ifndef HEALTHBAR_HPP
 #define HEALTHBAR_HPP
 

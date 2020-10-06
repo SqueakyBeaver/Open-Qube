@@ -1,5 +1,9 @@
-#ifndef HERO_HPP
-#define HERO_HPP
+//////////////////////////////////////////////////
+// This is the class for the player's character //
+//////////////////////////////////////////////////
+
+#ifndef QUBE_HPP
+#define QUBE_HPP
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -7,6 +11,7 @@
 #include <string>
 
 #include "Entity.hpp"
+
 #include "HealthBar.hpp"
 
 class Qube : public sf::Drawable, public Entity {
