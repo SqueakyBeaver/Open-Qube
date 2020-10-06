@@ -17,4 +17,4 @@ You will need to link the SFML libraries
 
 ## Supporting
 Want to help support development?\
-The best way you can do this is by contributing and/or spreading the work
+The best way you can do this is by contributing and/or spreading the word
