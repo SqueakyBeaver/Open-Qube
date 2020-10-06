@@ -19,7 +19,7 @@ public:
     int entity_id{};
     Entity(sf::Vector2f &coords, float radius, std::string team, int lvl,
            int max_health)
-        : entity_id(x++), coordinates(), scale(sf::Vector2f(1, 1)),
+        : entity_id(x++), coordinates(coords), scale(sf::Vector2f(1, 1)),
           radius(radius), team(team), level(lvl), health(max_health),
           max_health(max_health), health_meter(coords, radius) {
     } // Sorry but I got errors

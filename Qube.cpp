@@ -18,7 +18,7 @@ Qube::Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window,
     } else {
         qube_hero.setTexture(hero_texture);
         qube_hero.setOrigin(radius, radius);
-        qube_hero.setPosition(coords);
+        qube_hero.setPosition(draw_window.mapCoordsToPixel(coords).x, draw_window.mapCoordsToPixel(coords).y);
     }
 
     health = 100;

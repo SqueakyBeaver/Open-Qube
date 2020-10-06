@@ -18,7 +18,7 @@ public:
     HealthBar(sf::Vector2f &coordinates, float radius);
 
     // For large health bar
-    void update(float max_health, float current_health);
+    void update(float max_health, float current_health, sf::RenderWindow &window);
 
     // For mini health bar
     void update(float max_health, float current_health,

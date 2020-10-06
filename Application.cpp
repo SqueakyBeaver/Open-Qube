@@ -8,8 +8,9 @@ Application::Application()
     : window(sf::VideoMode::getFullscreenModes()[0], "Qube's Adventure",
              sf::Style::Fullscreen),
 
-      qube(sf::Vector2f(40, window.getView().getSize().y / 2), "Qube-hero.png",
-           window, 1),
+      qube(window.mapPixelToCoords(
+               sf::Vector2i(40, window.getView().getSize().y / 2)),
+           "Qube-hero.png", window, 1),
 
       enemy(40, 5, sf::Color(50, 70, 180), 3,
             sf::Vector2f(window.getView().getSize().x / 2 + 50,
@@ -17,6 +18,7 @@ Application::Application()
 
       modes(), calibri(), run_dir(0, 0), player_info(), start_text(),
       resized_view() {
+
     if (!calibri.loadFromFile("calibri.ttf"))
         std::exit(2);
 
@@ -36,6 +38,7 @@ Application::Application()
 }
 
 void Application::loopGame() {
+
     while (window.isOpen()) {
         // Start it
         // Gather what happpened
@@ -62,9 +65,11 @@ void Application::loopGame() {
         }
 
         player_info.setString(
-            "X: " + std::to_string(qube.qube_hero.getPosition().x) +
-            "\nY: " + std::to_string(qube.qube_hero.getPosition().y) +
+            "X: " + std::to_string(qube.getCoordinates().x) +
+            "\nY: " + std::to_string(qube.getCoordinates().y) +
             "\nHealth: " + std::to_string(qube.getHealth()));
+
+        player_info.setPosition(window.mapPixelToCoords(sf::Vector2i(20, 20)));
 
         if (Keyboard::isKeyPressed(Keyboard::Key::Escape)) {
             if (!resized) {
@@ -102,7 +107,7 @@ void Application::loopGame() {
             run_dir.y += RUN_DISTANCE;
 
         qube.regenerate(); // Pwease work?
-        qube.health_bar.update(100, qube.getHealth());
+        qube.health_bar.update(100, qube.getHealth(), window);
 
         qube.spin();
         qube.run(run_dir);
@@ -133,17 +138,24 @@ void Application::drawEntities() {
 
 void Application::moveView(const sf::Vector2f &move_dir) {
     sf::View view = window.getView();
-    if (qube.getCoordinates().x + move_dir.x >= window.getView().getSize().x)
-        view.move(100, 0);
 
-    if (qube.getCoordinates().x + move_dir.x <= 0)
-        view.move(-100, 0);
+    if (qube.getCoordinates().x + move_dir.x >=
+        window.mapPixelToCoords(sf::Vector2i(view.getSize().x, 0))
+            .x) // Weird formatting, huh
+        view.move(view.getSize().x, 0);
 
-    if (qube.getCoordinates().y + move_dir.y >= window.getView().getSize().y)
-        view.move(0, 100);
+    if (qube.getCoordinates().x + move_dir.x <=
+        window.mapPixelToCoords(sf::Vector2i(0, 0)).x)
+        view.move(-view.getSize().x, 0);
 
-    if (qube.getCoordinates().y + move_dir.y <= 0)
-        view.move(0, -100);
+    if (qube.getCoordinates().y + move_dir.y >=
+        window.mapPixelToCoords(sf::Vector2i(0, view.getSize().y))
+            .y) // Again, very weird
+        view.move(0, view.getSize().y);
+
+    if (qube.getCoordinates().y + move_dir.y <=
+        window.mapPixelToCoords(sf::Vector2i(0, 0)).y)
+        view.move(0, -view.getSize().y);
 
     window.setView(view);
 }
