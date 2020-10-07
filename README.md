@@ -6,7 +6,8 @@ Feel free to make a pull request, but make sure the pull request does not break 
 I may deny a pull request because it may break something I have planned. Please, do not feel disheartened if I do this to your pull request. 
 
 ## Building
-You need to get a C++ compiler and install the [SFML library](https://en.sfml-dev.org/download/sfml/2.5.1/)
+You need to get a C++ compiler and install the [SFML library](https://en.sfml-dev.org/download/sfml/2.5.1/)\
+Also visit [SFML's "Getting Started" tutorials](https://www.sfml-dev.org/tutorials/2.5/#getting-started)
 
 ### With Cmake
 Just build like normal with cmake (this includes a `cmake.txt`)\
