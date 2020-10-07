@@ -18,7 +18,8 @@ Qube::Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window,
     } else {
         qube_hero.setTexture(hero_texture);
         qube_hero.setOrigin(radius, radius);
-        qube_hero.setPosition(draw_window.mapCoordsToPixel(coords).x, draw_window.mapCoordsToPixel(coords).y);
+        qube_hero.setPosition(draw_window.mapCoordsToPixel(coords).x,
+                              draw_window.mapCoordsToPixel(coords).y);
     }
 
     health = 100;
@@ -71,36 +72,33 @@ void Qube::run(sf::Vector2f &run_for) {
 void Qube::spin() {
     static int rotated_for{};
     static float rotate_speed{};
+    static float rotate_brake{};
 
     if (rotate_speed < 0)
         rotate_speed = 0;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
-        if (rotate_speed < 25)
-            rotate_speed = 0;
-        rotate_speed -= 25;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+        rotate_brake += 25;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
         spinning = true;
         rotate_speed = rotated_for / 1.5;
     }
     if (spinning) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
             ++rotated_for;
 
             if (rotated_for < 90)
-                rotate_speed = rotated_for / 1.5;
+                rotate_speed = rotated_for * .75;
         }
 
-        if (rotated_for >= 90 ||
-            !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
-            rotate_speed -= 1.5;
-            if (rotated_for >= 115 &&
-                sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
-                if (health > 0)
-                    health -= .2;
-            }
+        rotate_speed -= .2;
+
+        if (rotated_for >= 115 &&
+            sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+            if (health > 0)
+                health -= .2;
         }
         if (!rotate_speed || rotate_speed < 1) {
             spinning = false;
@@ -108,8 +106,12 @@ void Qube::spin() {
     } else {
         rotate_speed = 0;
         rotated_for = 0;
+        rotate_brake = 0;
     }
-    qube_hero.rotate(rotate_speed);
+    if (rotate_speed - rotate_brake <= 0)
+        spinning = false;
+    else
+        qube_hero.rotate(rotate_speed - rotate_brake);
 }
 
 void Qube::regenerate() {

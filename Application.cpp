@@ -14,7 +14,7 @@ Application::Application()
             sf::Vector2f(window.getView().getSize().x / 2 + 50,
                          window.getView().getSize().y / 2)),*/
 
-      enemies(100, window),
+      enemies(1000, window),
 
       modes(), calibri(), run_dir(0, 0), player_info(), start_text(),
       resized_view(), fps_clock() {
