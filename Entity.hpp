@@ -36,6 +36,8 @@ public:
     // Get the radius
     float getRadius();
 
+    int getMaxHealth();
+
     // More to come
 
 protected:

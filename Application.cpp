@@ -55,13 +55,14 @@ void Application::loopGame() {
                 window.close();
                 break;
 
+            // Window was resized
             case sf::Event::Resized:
                 resized_view.setViewport(sf::FloatRect(
                     0.f, 0.f, event.size.width, event.size.height));
                 window.setView(sf::View(sf::FloatRect(
                     0.f, 0.f, event.size.width, event.size.height)));
-                player_info.setPosition(20, 20); // Could *possibly* change
                 break;
+
 
             case sf::Event::KeyPressed:
                 if (event.key.code == Keyboard::Key::LShift)
@@ -87,14 +88,16 @@ void Application::loopGame() {
 
         if (Keyboard::isKeyPressed(Keyboard::Key::Escape)) {
             if (!resized) {
-                // window.
+
                 window.create(modes[0], "Qube's Adventure", sf::Style::Default);
                 window.setSize(
                     sf::Vector2u(window.getSize().x, window.getSize().y - 30));
                 window.setTitle("Qube's Adventure");
                 window.setVerticalSyncEnabled(true);
                 resized = true;
+
             } else {
+
                 window.create(modes[0], "Qube's Adventure",
                               sf::Style::Fullscreen);
                 window.setSize(
@@ -102,8 +105,8 @@ void Application::loopGame() {
                 window.setVerticalSyncEnabled(true);
                 resized = false;
             }
-            continue;
         }
+
         if ((Keyboard::isKeyPressed(Keyboard::Key::Left) ||
              Keyboard::isKeyPressed(Keyboard::Key::A)) &&
             qube.getCoordinates().x > 0 + qube.getRadius())
@@ -124,25 +127,27 @@ void Application::loopGame() {
              Keyboard::isKeyPressed(Keyboard::Key::S)) &&
             qube.getCoordinates().y <
                 window.getView().getSize().y * 50 - qube.getRadius())
+
             run_dir.y += run_distance;
 
-        qube.regenerate(); // Pwease work?
-        qube.health_bar.update(100, qube.getHealth(), window);
+        qube.regenerate();
+        qube.health_bar.update(qube.getMaxHealth(), qube.getHealth(), window);
+
+        qube.run(run_dir);
 
         qube.spin();
-        qube.run(run_dir);
         enemies.spin();
 
-        moveView(run_dir); // Need to rework some stuff
+        moveView(run_dir);
 
         drawEntities();
 
         while (!started) {
-
             window.draw(start_text);
             window.display();
             started = Keyboard::isKeyPressed(Keyboard::Key::Enter);
         }
+
         fps = std::ceil(1 / fps_clock.restart().asSeconds());
     }
 }
@@ -161,7 +166,7 @@ void Application::moveView(const sf::Vector2f &move_dir) {
     sf::View view = window.getView();
 
     if (qube.getCoordinates().x + move_dir.x >=
-        window.mapPixelToCoords(sf::Vector2i(view.getSize().x, 0))
+        window.mapPixelToCoords(sf::Vector2i(view.getSize()))
             .x) // Weird formatting, huh
         view.move(view.getSize().x, 0);
 
@@ -170,7 +175,7 @@ void Application::moveView(const sf::Vector2f &move_dir) {
         view.move(-view.getSize().x, 0);
 
     if (qube.getCoordinates().y + move_dir.y >=
-        window.mapPixelToCoords(sf::Vector2i(0, view.getSize().y))
+        window.mapPixelToCoords(sf::Vector2i(view.getSize()))
             .y) // Again, very weird
         view.move(0, view.getSize().y);
 

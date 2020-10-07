@@ -8,7 +8,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 if (MSVC)
     # warning level 4 and all warnings as errors
-    add_compile_options(/W4 /WX /std:c++2a)
+    add_compile_options(/W4 /WX /Wall /std:c++2a)
 else()
     # lots of warnings and all warnings as errors
     add_compile_options(-Wall -Wextra -pedantic -Werror -std=c++2a)
