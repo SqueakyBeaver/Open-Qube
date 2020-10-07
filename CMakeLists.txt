@@ -11,7 +11,7 @@ set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 
 
 find_package(SFML 2.5 COMPONENTS graphics REQUIRED)
-add_executable(Qube-Defense Qube-main.cpp Qube.cpp Enemy.cpp HealthBar.cpp Application.cpp Entity.cpp)
+add_executable(Qube-Defense Qube-main.cpp Qube.cpp Enemy.cpp HealthBar.cpp Application.cpp Entity.cpp EnemyGroup.cpp)
 target_link_libraries(Qube-Defense sfml-graphics sfml-system)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})

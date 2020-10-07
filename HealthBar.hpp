@@ -17,6 +17,8 @@ public:
     // For the small entity meters
     HealthBar(sf::Vector2f &coordinates, float radius);
 
+    HealthBar() : bar(), bar_outline() {};
+
     // For large health bar
     void update(float max_health, float current_health, sf::RenderWindow &window);
 

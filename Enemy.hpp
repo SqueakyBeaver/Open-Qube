@@ -18,13 +18,18 @@ public:
 
     sf::CircleShape enemy_body;
 
+    Enemy() : enemy_body(){};
+
+    // Initialize after creation
+    void initialize(unsigned int radius, unsigned int points, unsigned int lvl,
+                    sf::Vector2f coords);
+
     void findNextCoordinates();
 
     void run(sf::Vector2f run_dir);
 
     void spin();
 
-private:
     virtual void
     draw(sf::RenderTarget &target,
          sf::RenderStates states = sf::RenderStates::Default) const {

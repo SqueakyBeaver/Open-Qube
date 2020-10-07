@@ -26,7 +26,10 @@ Qube::Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window,
 }
 
 void Qube::run(sf::Vector2f &run_for) {
-    qube_hero.move(run_for);
+    float sprint_multi = 1;
+    if (sprinting)
+        sprint_multi = 10;
+    qube_hero.move(run_for * sprint_multi);
     if (!spinning) {
         if (run_for.x || run_for.y) {
             if (run_for.x) {
@@ -72,18 +75,18 @@ void Qube::spin() {
     if (rotate_speed < 0)
         rotate_speed = 0;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
         if (rotate_speed < 25)
             rotate_speed = 0;
         rotate_speed -= 25;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
         spinning = true;
         rotate_speed = rotated_for / 1.5;
     }
     if (spinning) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
             ++rotated_for;
 
             if (rotated_for < 90)
@@ -91,10 +94,10 @@ void Qube::spin() {
         }
 
         if (rotated_for >= 90 ||
-            !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
+            !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
             rotate_speed -= 1.5;
             if (rotated_for >= 115 &&
-                sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
+                sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
                 if (health > 0)
                     health -= .2;
             }

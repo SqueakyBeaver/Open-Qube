@@ -49,6 +49,8 @@ public:
         West = 270,
     };
 
+    bool sprinting{};
+
 protected:
     // Is it healing??
     bool healing{false};

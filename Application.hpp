@@ -7,6 +7,7 @@
 #define APPLICATION_HPP
 
 #include <SFML/Graphics.hpp>
+#include <cmath>
 #include <cstdlib>
 #include <vector>
 
@@ -14,7 +15,7 @@
 #include <cassert>
 #endif
 
-#include "Enemy.hpp"
+#include "EnemyGroup.hpp"
 #include "Qube.hpp"
 
 class Application {
@@ -42,7 +43,8 @@ private:
     Qube qube;
 
     // The enemy
-    Enemy enemy;
+    // Enemy enemy;
+    EnemyGroup enemies;
 
     // If the window is resized
     bool resized{};
@@ -67,6 +69,12 @@ private:
 
     // View for a resized window
     sf::View resized_view;
+
+    // Clock for the fps
+    sf::Clock fps_clock;
+
+    // The fps variable
+    int fps{};
 };
 
 #endif

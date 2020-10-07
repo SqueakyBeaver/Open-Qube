@@ -2,8 +2,6 @@
 
 using sf::Keyboard;
 
-const float RUN_DISTANCE{5};
-
 Application::Application()
     : window(sf::VideoMode::getFullscreenModes()[0], "Qube's Adventure",
              sf::Style::Fullscreen),
@@ -12,18 +10,20 @@ Application::Application()
                sf::Vector2i(40, window.getView().getSize().y / 2)),
            "Qube-hero.png", window, 1),
 
-      enemy(40, 5, sf::Color(50, 70, 180), 3,
+      /*enemy(40, 5, sf::Color(50, 70, 180), 3,
             sf::Vector2f(window.getView().getSize().x / 2 + 50,
-                         window.getView().getSize().y / 2)),
+                         window.getView().getSize().y / 2)),*/
+
+      enemies(100, window),
 
       modes(), calibri(), run_dir(0, 0), player_info(), start_text(),
-      resized_view() {
+      resized_view(), fps_clock() {
 
     if (!calibri.loadFromFile("calibri.ttf"))
         std::exit(2);
 
     start_text.setFont(calibri);
-    start_text.setString("Press space to start");
+    start_text.setString("Press enter to start");
 
     player_info.setFont(calibri);
     player_info.setCharacterSize(18);
@@ -40,6 +40,10 @@ Application::Application()
 void Application::loopGame() {
 
     while (window.isOpen()) {
+
+        // Distance to run
+        int run_distance{5};
+
         // Start it
         // Gather what happpened
         sf::Event event;
@@ -59,6 +63,16 @@ void Application::loopGame() {
                 player_info.setPosition(20, 20); // Could *possibly* change
                 break;
 
+            case sf::Event::KeyPressed:
+                if (event.key.code == Keyboard::Key::LShift)
+                    qube.sprinting = true;
+                break;
+
+            case sf::Event::KeyReleased:
+                if (event.key.code == Keyboard::Key::LShift)
+                    qube.sprinting = false;
+                break;
+
             default:
                 break;
             }
@@ -66,8 +80,8 @@ void Application::loopGame() {
 
         player_info.setString(
             "X: " + std::to_string(qube.getCoordinates().x) +
-            "\nY: " + std::to_string(qube.getCoordinates().y) +
-            "\nHealth: " + std::to_string(qube.getHealth()));
+            "\nY: " + std::to_string(qube.getCoordinates().y) + "\nHealth: " +
+            std::to_string(qube.getHealth()) + "\nFps: " + std::to_string(fps));
 
         player_info.setPosition(window.mapPixelToCoords(sf::Vector2i(20, 20)));
 
@@ -90,28 +104,34 @@ void Application::loopGame() {
             }
             continue;
         }
-        if (Keyboard::isKeyPressed(Keyboard::Key::Left) ||
-            Keyboard::isKeyPressed(Keyboard::Key::A))
-            run_dir.x -= RUN_DISTANCE;
+        if ((Keyboard::isKeyPressed(Keyboard::Key::Left) ||
+             Keyboard::isKeyPressed(Keyboard::Key::A)) &&
+            qube.getCoordinates().x > 0 + qube.getRadius())
+            run_dir.x -= run_distance;
 
-        if (Keyboard::isKeyPressed(Keyboard::Key::Right) ||
-            Keyboard::isKeyPressed(Keyboard::Key::D))
-            run_dir.x += RUN_DISTANCE;
+        if ((Keyboard::isKeyPressed(Keyboard::Key::Right) ||
+             Keyboard::isKeyPressed(Keyboard::Key::D)) &&
+            qube.getCoordinates().x <
+                window.getView().getSize().x * 50 - qube.getRadius())
+            run_dir.x += run_distance;
 
-        if (Keyboard::isKeyPressed(Keyboard::Key::Up) ||
-            Keyboard::isKeyPressed(Keyboard::Key::W))
-            run_dir.y -= RUN_DISTANCE;
+        if ((Keyboard::isKeyPressed(Keyboard::Key::Up) ||
+             Keyboard::isKeyPressed(Keyboard::Key::W)) &&
+            qube.getCoordinates().y > 0 + qube.getRadius())
+            run_dir.y -= run_distance;
 
-        if (Keyboard::isKeyPressed(Keyboard::Key::Down) ||
-            Keyboard::isKeyPressed(Keyboard::Key::S))
-            run_dir.y += RUN_DISTANCE;
+        if ((Keyboard::isKeyPressed(Keyboard::Key::Down) ||
+             Keyboard::isKeyPressed(Keyboard::Key::S)) &&
+            qube.getCoordinates().y <
+                window.getView().getSize().y * 50 - qube.getRadius())
+            run_dir.y += run_distance;
 
         qube.regenerate(); // Pwease work?
         qube.health_bar.update(100, qube.getHealth(), window);
 
         qube.spin();
         qube.run(run_dir);
-        enemy.spin();
+        enemies.spin();
 
         moveView(run_dir); // Need to rework some stuff
 
@@ -121,8 +141,9 @@ void Application::loopGame() {
 
             window.draw(start_text);
             window.display();
-            started = Keyboard::isKeyPressed(Keyboard::Key::Space);
+            started = Keyboard::isKeyPressed(Keyboard::Key::Enter);
         }
+        fps = std::ceil(1 / fps_clock.restart().asSeconds());
     }
 }
 
@@ -130,7 +151,7 @@ void Application::drawEntities() {
     window.clear(sf::Color(138, 127, 128, 200));
 
     window.draw(qube);
-    window.draw(enemy);
+    window.draw(enemies);
     window.draw(player_info);
 
     window.display();

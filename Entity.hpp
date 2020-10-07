@@ -24,10 +24,17 @@ public:
           max_health(max_health), health_meter(coords, radius) {
     } // Sorry but I got errors
 
+    Entity()
+        : entity_id(x++), coordinates(), scale(sf::Vector2f(1, 1)), radius(),
+          team(), level(), health(), max_health(), health_meter(){};
+
     virtual ~Entity() {}
 
     // Get the coordinates
     sf::Vector2f getCoordinates(); // I gotta apease stuff
+
+    // Get the radius
+    float getRadius();
 
     // More to come
 
