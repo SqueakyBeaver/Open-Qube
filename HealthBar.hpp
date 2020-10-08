@@ -24,7 +24,7 @@ public:
 
     // For mini health bar
     void update(float max_health, float current_health,
-                const sf::Vector2f &coordinatess, float radius);
+                const sf::Vector2f &coordinates, float radius);
 
 protected:
     sf::RectangleShape bar;

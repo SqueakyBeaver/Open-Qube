@@ -21,6 +21,9 @@ public:
     // SPIN THEM ALLLLLLLLLLLLLLLL
     void spin();
 
+    // Update all the health meters
+    void updateHealthMeters();
+
 private:
     // Generate random numbers (may need to move)
     float genRand(float low, float high);
@@ -28,6 +31,7 @@ private:
     // Dynamic array of all the enemies
     std::vector<Enemy> enemies;
 
+    // I have no idea how to do virtual functions :p
     virtual void
     draw(sf::RenderTarget &target,
          sf::RenderStates states = sf::RenderStates::Default) const {

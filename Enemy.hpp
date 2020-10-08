@@ -13,8 +13,8 @@
 
 class Enemy : public sf::Drawable, public Entity {
 public:
-    Enemy(unsigned int radius, unsigned int points, sf::Color edge_color,
-          unsigned int lvl, sf::Vector2f coords);
+    Enemy(unsigned int radius, unsigned int points, unsigned int lvl,
+          sf::Vector2f coords);
 
     sf::CircleShape enemy_body;
 

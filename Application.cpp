@@ -63,7 +63,6 @@ void Application::loopGame() {
                     0.f, 0.f, event.size.width, event.size.height)));
                 break;
 
-
             case sf::Event::KeyPressed:
                 if (event.key.code == Keyboard::Key::LShift)
                     qube.sprinting = true;
@@ -130,12 +129,14 @@ void Application::loopGame() {
 
             run_dir.y += run_distance;
 
+        // Update the player's thingies
         qube.regenerate();
-        qube.health_bar.update(qube.getMaxHealth(), qube.getHealth(), window);
-
+        qube.updateHealthMeter(window);
         qube.run(run_dir);
-
         qube.spin();
+
+        // Update all the enemies' stuff
+        enemies.updateHealthMeters();
         enemies.spin();
 
         moveView(run_dir);
@@ -153,7 +154,7 @@ void Application::loopGame() {
 }
 
 void Application::drawEntities() {
-    window.clear(sf::Color(138, 127, 128, 200));
+    window.clear(sf::Color(138, 127, 128));
 
     window.draw(qube);
     window.draw(enemies);

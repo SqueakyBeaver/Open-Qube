@@ -36,7 +36,11 @@ public:
     // Get the radius
     float getRadius();
 
+    // Get the max health
     int getMaxHealth();
+
+    // Update the health meter
+    void updateHealthMeter();
 
     // More to come
 

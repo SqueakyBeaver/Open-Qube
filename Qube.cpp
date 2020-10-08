@@ -138,3 +138,8 @@ void Qube::regenerate() {
 }
 
 float Qube::getHealth() { return health; }
+
+void Qube::updateHealthMeter(sf::RenderWindow &window) {
+    health_meter.update(max_health, health, coordinates, radius);
+    health_bar.update(max_health, health, window);
+}

@@ -6,8 +6,8 @@ EnemyGroup::EnemyGroup(int enemy_count, sf::RenderWindow &window)
         iii.initialize(
             genRand(30, 50), genRand(3, 13), genRand(1, 20),
             sf::Vector2f(
-                genRand(100, 20 * window.getView().getSize().x - 100),
-                genRand(100, 20 * window.getView().getSize().y - 100)));
+                genRand(300, 20 * window.getView().getSize().x - 300),
+                genRand(300, 20 * window.getView().getSize().y - 300)));
         // To anyone who reads this: I am so very sorry
     }
 }
@@ -22,5 +22,11 @@ float EnemyGroup::genRand(float low, float high) {
 void EnemyGroup::spin() {
     for (Enemy &iii : enemies) {
         iii.spin();
+    }
+}
+
+void EnemyGroup::updateHealthMeters() {
+    for (Enemy &iii : enemies) {
+        iii.updateHealthMeter();
     }
 }
