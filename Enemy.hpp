@@ -32,10 +32,7 @@ public:
 
     virtual void
     draw(sf::RenderTarget &target,
-         sf::RenderStates states = sf::RenderStates::Default) const {
-        target.draw(enemy_body, states);
-        target.draw(health_meter, states);
-    }
+         sf::RenderStates states) const;
 };
 
 #endif

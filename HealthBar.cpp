@@ -60,3 +60,11 @@ void HealthBar::update(float max_health, float current_health,
     else if (current_health <= 0)
         bar.setScale(0, 1);
 }
+
+void HealthBar::draw(
+    sf::RenderTarget &target,
+    sf::RenderStates states = sf::RenderStates::Default) const {
+    target.draw(bar_outline, states);
+    if (bar.getScale().x > 0)
+        target.draw(bar, states);
+}

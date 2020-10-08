@@ -17,10 +17,11 @@ public:
     // For the small entity meters
     HealthBar(sf::Vector2f &coordinates, float radius);
 
-    HealthBar() : bar(), bar_outline() {};
+    HealthBar() : bar(), bar_outline(){};
 
     // For large health bar
-    void update(float max_health, float current_health, sf::RenderWindow &window);
+    void update(float max_health, float current_health,
+                sf::RenderWindow &window);
 
     // For mini health bar
     void update(float max_health, float current_health,
@@ -33,10 +34,7 @@ protected:
 private:
     virtual void
     draw(sf::RenderTarget &target,
-         sf::RenderStates states = sf::RenderStates::Default) const {
-        target.draw(bar_outline, states);
-        target.draw(bar, states);
-    }
+         sf::RenderStates states) const;
 };
 
 #endif

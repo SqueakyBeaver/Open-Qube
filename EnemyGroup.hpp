@@ -24,6 +24,8 @@ public:
     // Update all the health meters
     void updateHealthMeters();
 
+    void contact(Entity &entity);
+
 private:
     // Generate random numbers (may need to move)
     float genRand(float low, float high);
@@ -34,11 +36,7 @@ private:
     // I have no idea how to do virtual functions :p
     virtual void
     draw(sf::RenderTarget &target,
-         sf::RenderStates states = sf::RenderStates::Default) const {
-        for (const Enemy &iii : enemies) {
-            iii.draw(target, states);
-        }
-    }
+         sf::RenderStates states) const;
 };
 
 #endif

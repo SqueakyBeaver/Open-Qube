@@ -138,6 +138,7 @@ void Application::loopGame() {
         // Update all the enemies' stuff
         enemies.updateHealthMeters();
         enemies.spin();
+        enemies.contact(qube);
 
         moveView(run_dir);
 
@@ -154,7 +155,7 @@ void Application::loopGame() {
 }
 
 void Application::drawEntities() {
-    window.clear(sf::Color(138, 127, 128));
+    window.clear(sf::Color(138, 127, 128)); // Hehe if I comment this out, things get weird
 
     window.draw(qube);
     window.draw(enemies);

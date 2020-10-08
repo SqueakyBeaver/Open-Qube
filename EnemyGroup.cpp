@@ -4,7 +4,7 @@ EnemyGroup::EnemyGroup(int enemy_count, sf::RenderWindow &window)
     : enemies(enemy_count) {
     for (Enemy &iii : enemies) {
         iii.initialize(
-            genRand(30, 50), genRand(3, 13), genRand(1, 20),
+            genRand(40, 50), genRand(3, 13), genRand(1, 20),
             sf::Vector2f(
                 genRand(300, 20 * window.getView().getSize().x - 300),
                 genRand(300, 20 * window.getView().getSize().y - 300)));
@@ -28,5 +28,22 @@ void EnemyGroup::spin() {
 void EnemyGroup::updateHealthMeters() {
     for (Enemy &iii : enemies) {
         iii.updateHealthMeter();
+    }
+}
+
+void EnemyGroup::contact(Entity &entity) {
+    if (entity.getTeam() == Teams::Player) {
+        for (Enemy &iii : enemies) {
+            if (iii.getHitbox().intersects(entity.getHitbox()))
+                iii.damage(10.F);
+        }
+    }
+}
+
+void EnemyGroup::draw(
+    sf::RenderTarget &target,
+    sf::RenderStates states = sf::RenderStates::Default) const {
+    for (const Enemy &iii : enemies) {
+        iii.draw(target, states);
     }
 }

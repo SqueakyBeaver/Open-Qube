@@ -8,7 +8,7 @@
 
 Qube::Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window,
            int lvl)
-    : Entity(coords, 40, "Player", lvl, 100), health_bar(draw_window),
+    : Entity(coords, 40, Teams::Player, lvl, 100), health_bar(draw_window),
       hero_texture()
 
 {
@@ -67,6 +67,9 @@ void Qube::run(sf::Vector2f &run_for) {
     coordinates = qube_hero.getPosition();
     health_meter.update(max_health, health, coordinates, radius);
     run_for = sf::Vector2f(0, 0);
+
+    hitbox.left = (coordinates.x - .8 * radius);
+    hitbox.top = (coordinates.y - .8 * radius);
 }
 
 void Qube::spin() {
@@ -96,7 +99,8 @@ void Qube::spin() {
         rotate_speed -= .2;
 
         if (rotated_for >= 115 &&
-            sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+            sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl) &&
+            !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
             if (health > 0)
                 health -= .2;
         }
@@ -142,4 +146,11 @@ float Qube::getHealth() { return health; }
 void Qube::updateHealthMeter(sf::RenderWindow &window) {
     health_meter.update(max_health, health, coordinates, radius);
     health_bar.update(max_health, health, window);
+}
+
+void Qube::draw(sf::RenderTarget &target,
+                sf::RenderStates states = sf::RenderStates::Default) const {
+    target.draw(qube_hero, states);
+    target.draw(health_bar, states);
+    target.draw(health_meter, states);
 }

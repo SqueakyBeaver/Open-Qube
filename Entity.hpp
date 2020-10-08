@@ -7,26 +7,30 @@
 #define ENTITY_HPP
 
 #include <SFML/Graphics.hpp>
-#include <string>
+//#include <string>
 
 #include "HealthBar.hpp"
 
+// The team options (put here because everything that relies on this will
+// include this file)
+enum class Teams {
+    Player,
+    Enemy,
+};
+
 class Entity {
 private:
+    // Assigned to id
     static inline unsigned int x; // Should not be negative
 
 public:
+    // Id of the entity
     int entity_id{};
-    Entity(sf::Vector2f &coords, float radius, std::string team, int lvl,
-           int max_health)
-        : entity_id(x++), coordinates(coords), scale(sf::Vector2f(1, 1)),
-          radius(radius), team(team), level(lvl), health(max_health),
-          max_health(max_health), health_meter(coords, radius) {
-    } // Sorry but I got errors
 
-    Entity()
-        : entity_id(x++), coordinates(), scale(sf::Vector2f(1, 1)), radius(),
-          team(), level(), health(), max_health(), health_meter(){};
+    Entity(sf::Vector2f &coords, float radius, Teams team, int lvl,
+           int max_health);
+
+    Entity();
 
     virtual ~Entity() {}
 
@@ -42,6 +46,15 @@ public:
     // Update the health meter
     void updateHealthMeter();
 
+    // Get the hitbox
+    sf::FloatRect getHitbox();
+
+    // Get the team
+    Teams getTeam();
+
+    // Damage the entity
+    void damage(float damage_by);
+
     // More to come
 
 protected:
@@ -55,7 +68,7 @@ protected:
     float radius{};
 
     // Entity's team (player, enemy)
-    std::string team;
+    Teams team;
 
     // Whether entity is spinning
     bool spinning{};
@@ -69,7 +82,11 @@ protected:
     // Entity's maximum health
     float max_health;
 
+    // The health meters of the entities
     HealthBar health_meter;
+
+    // Hitbox
+    sf::FloatRect hitbox;
 };
 
 #endif
