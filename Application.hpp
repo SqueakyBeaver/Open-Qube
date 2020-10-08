@@ -32,6 +32,8 @@ public:
     // Move the window
     void moveView(const sf::Vector2f &move_dir);
 
+    void gameOver();
+
     // end the game
     ~Application() = default;
 

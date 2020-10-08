@@ -38,8 +38,12 @@ Application::Application()
 }
 
 void Application::loopGame() {
-
     while (window.isOpen()) {
+        if (qube.getHealth() <= 0 ||
+            Keyboard::isKeyPressed(Keyboard::Key::Backspace)) {
+            gameOver();
+            continue;
+        }
 
         // Distance to run
         int run_distance{5};
@@ -155,7 +159,8 @@ void Application::loopGame() {
 }
 
 void Application::drawEntities() {
-    window.clear(sf::Color(138, 127, 128)); // Hehe if I comment this out, things get weird
+    window.clear(sf::Color(
+        138, 127, 128)); // Hehe if I comment this out, things get weird
 
     window.draw(qube);
     window.draw(enemies);
@@ -186,4 +191,36 @@ void Application::moveView(const sf::Vector2f &move_dir) {
         view.move(0, -view.getSize().y);
 
     window.setView(view);
+}
+
+void Application::gameOver() {
+    bool end{};
+    sf::Text row1("Game Over", calibri, 60);
+    sf::Text row2("Press enter to continue", calibri);
+
+    row1.setOrigin(
+        row1.getGlobalBounds().left + row1.getGlobalBounds().width / 2.0F,
+        row1.getGlobalBounds().top + row1.getGlobalBounds().height / 2.0F);
+
+    row2.setOrigin(
+        row2.getGlobalBounds().left + row2.getGlobalBounds().width / 2.0F,
+        row2.getGlobalBounds().top + row2.getGlobalBounds().height / 2.0F);
+
+    row1.setPosition(window.mapPixelToCoords(
+        sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2)));
+    row1.setFillColor(sf::Color(60, 178, 200));
+
+    row2.setPosition(window.mapPixelToCoords(sf::Vector2i(
+        window.getSize().x / 2,
+        window.getSize().y / 2 + row1.getGlobalBounds().height + 20)));
+    row2.setFillColor(sf::Color(60, 178, 200, 100));
+
+    while (!end) {
+        end = Keyboard::isKeyPressed(Keyboard::Key::Enter);
+        window.clear();
+        window.draw(row1);
+        window.draw(row2);
+        window.display();
+    }
+    window.close();
 }

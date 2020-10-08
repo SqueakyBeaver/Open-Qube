@@ -33,7 +33,6 @@ private:
     // Dynamic array of all the enemies
     std::vector<Enemy> enemies;
 
-    // I have no idea how to do virtual functions :p
     virtual void
     draw(sf::RenderTarget &target,
          sf::RenderStates states) const;
