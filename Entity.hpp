@@ -70,9 +70,6 @@ protected:
     // Entity's team (player, enemy)
     Teams team;
 
-    // Whether entity is spinning
-    bool spinning{};
-
     // Entity's level
     int level{1};
 

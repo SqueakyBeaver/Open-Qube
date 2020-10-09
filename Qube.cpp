@@ -74,7 +74,6 @@ void Qube::run(sf::Vector2f &run_for) {
 
 void Qube::spin() {
     static int rotated_for{};
-    static float rotate_speed{};
     static float rotate_brake{};
 
     if (rotate_speed < 0)
@@ -93,7 +92,7 @@ void Qube::spin() {
             ++rotated_for;
 
             if (rotated_for < 90)
-                rotate_speed = rotated_for * .75;
+                rotate_speed = (level + rotated_for) * .75;
         }
 
         rotate_speed -= .2;
@@ -142,6 +141,10 @@ void Qube::regenerate() {
 }
 
 float Qube::getHealth() { return health; }
+
+bool Qube::isSpinning() { return spinning; }
+
+float Qube::getSpinSpeed() { return rotate_speed; }
 
 void Qube::updateHealthMeter(sf::RenderWindow &window) {
     health_meter.update(max_health, health, coordinates, radius);

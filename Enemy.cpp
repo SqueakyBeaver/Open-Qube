@@ -35,7 +35,7 @@ void Enemy::initialize(unsigned int r, unsigned int points, unsigned int lvl,
 } // Dang, that's a lot of stuff
 
 void Enemy::spin() {
-    enemy_body.rotate(5 * level);
+    enemy_body.rotate(50 * level);
     // Damage will be calculated based on spin speed
 }
 

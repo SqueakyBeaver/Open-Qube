@@ -31,11 +31,12 @@ void EnemyGroup::updateHealthMeters() {
     }
 }
 
-void EnemyGroup::contact(Entity &entity) {
-    if (entity.getTeam() == Teams::Player) {
+// Need to overload if I will add other entities
+void EnemyGroup::contact(Qube &qube) {
+    if (qube.isSpinning()) {
         for (Enemy &iii : enemies) {
-            if (iii.getHitbox().intersects(entity.getHitbox()))
-                iii.damage(10.F);
+            if (iii.getHitbox().intersects(qube.getHitbox()))
+                iii.damage(qube.getSpinSpeed() * .75F);
         }
     }
 }

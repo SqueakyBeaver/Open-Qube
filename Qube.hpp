@@ -41,6 +41,12 @@ public:
     // Get the Health
     float getHealth();
 
+    // Returns whether the entity is spinning
+    bool isSpinning();
+
+    // Get the speed of the spin
+    float getSpinSpeed();
+
     void updateHealthMeter(sf::RenderWindow &window);
 
     // Angles of roation (combine and divide by 2 to get north-west, etc.)
@@ -54,8 +60,14 @@ public:
     bool sprinting{};
 
 protected:
+    // Speed of the rotation
+    float rotate_speed{};
+
     // Is it healing??
     bool healing{false};
+
+    // Whether qube is spinning
+    bool spinning{};
 
     // Angle of direction Qube is facing
     float angle_rotation{};
@@ -64,9 +76,7 @@ protected:
     sf::Texture hero_texture;
 
 private:
-    virtual void
-    draw(sf::RenderTarget &target,
-         sf::RenderStates states) const;
+    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
 
 #endif

@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "Enemy.hpp"
+#include "Qube.hpp"
 
 class EnemyGroup : public sf::Drawable {
 public:
@@ -24,7 +25,7 @@ public:
     // Update all the health meters
     void updateHealthMeters();
 
-    void contact(Entity &entity);
+    void contact(Qube &qube);
 
 private:
     // Generate random numbers (may need to move)
