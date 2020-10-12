@@ -38,6 +38,8 @@ Application::Application()
 }
 
 void Application::loopGame() {
+    // Distance to run
+    int run_distance{5};
     while (window.isOpen()) {
         if (qube.getHealth() <= 0 ||
             Keyboard::isKeyPressed(Keyboard::Key::Backspace)) {
@@ -45,10 +47,6 @@ void Application::loopGame() {
             continue;
         }
 
-        // Distance to run
-        int run_distance{5};
-
-        // Start it
         // Gather what happpened
         sf::Event event;
 
@@ -137,12 +135,9 @@ void Application::loopGame() {
         qube.regenerate();
         qube.updateHealthMeter(window);
         qube.run(run_dir);
-        qube.spin();
+        qube.spin(fps);
 
-        // Update all the enemies' stuff
-        enemies.updateHealthMeters();
-        enemies.spin();
-        enemies.contact(qube);
+        enemies.update(qube);
 
         moveView(run_dir);
 
@@ -154,7 +149,9 @@ void Application::loopGame() {
             started = Keyboard::isKeyPressed(Keyboard::Key::Enter);
         }
 
-        fps = std::ceil(1 / fps_clock.restart().asSeconds());
+        fps = std::floor(1 / fps_clock.restart().asSeconds());
+
+        run_distance = (60.0 / fps) * 10;
     }
 }
 

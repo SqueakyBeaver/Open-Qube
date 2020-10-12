@@ -34,10 +34,7 @@ void Enemy::initialize(unsigned int r, unsigned int points, unsigned int lvl,
     enemy_body.setOrigin(radius, radius);
 } // Dang, that's a lot of stuff
 
-void Enemy::spin() {
-    enemy_body.rotate(50 * level);
-    // Damage will be calculated based on spin speed
-}
+void Enemy::spin() { enemy_body.rotate(50 * level); }
 
 void Enemy::draw(sf::RenderTarget &target,
                  sf::RenderStates states = sf::RenderStates::Default) const {
@@ -45,4 +42,27 @@ void Enemy::draw(sf::RenderTarget &target,
         target.draw(enemy_body, states);
         target.draw(health_meter, states);
     }
+}
+
+sf::Vector2f Enemy::findNextCoordinates(Entity &entity) {
+
+    static sf::Vector2f move_dir;
+    if (coordinates.x < entity.getCoordinates().x)
+        move_dir.x += 5;
+    if (coordinates.x > entity.getCoordinates().x)
+        move_dir.x -= 5;
+
+    if (coordinates.y < entity.getCoordinates().y)
+        move_dir.y += 5;
+    if (coordinates.y > entity.getCoordinates().y)
+        move_dir.y -= 5;
+
+    return move_dir;
+}
+
+void Enemy::run(const sf::Vector2f &run_dir) {
+    enemy_body.move(run_dir);
+    coordinates += run_dir;
+    hitbox.left = (coordinates.x - .8 * radius);
+    hitbox.top = (coordinates.y - .8 * radius);
 }

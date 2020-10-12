@@ -33,7 +33,7 @@ public:
     void run(sf::Vector2f &run_for);
 
     // YOU SPIN ME RIGHT ROUND
-    void spin();
+    void spin(int fps);
 
     // Regenerate
     void regenerate();

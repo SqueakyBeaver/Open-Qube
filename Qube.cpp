@@ -72,7 +72,7 @@ void Qube::run(sf::Vector2f &run_for) {
     hitbox.top = (coordinates.y - .8 * radius);
 }
 
-void Qube::spin() {
+void Qube::spin(int fps) {
     static int rotated_for{};
     static float rotate_brake{};
 
@@ -80,12 +80,12 @@ void Qube::spin() {
         rotate_speed = 0;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
-        rotate_brake += 25;
+        rotate_brake += 25 * (60.0F/fps);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
         spinning = true;
-        rotate_speed = rotated_for / 1.5;
+        rotate_speed = rotated_for / 1.5 * (60.0F / fps);
     }
     if (spinning) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
@@ -95,7 +95,7 @@ void Qube::spin() {
                 rotate_speed = (level + rotated_for) * .75;
         }
 
-        rotate_speed -= .2;
+        rotate_speed -= .2 * (60.0F / fps);
 
         if (rotated_for >= 115 &&
             sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl) &&
@@ -103,7 +103,7 @@ void Qube::spin() {
             if (health > 0)
                 health -= .2;
         }
-        if (!rotate_speed || rotate_speed < 1) {
+        if (rotate_speed < 1) {
             spinning = false;
         }
     } else {

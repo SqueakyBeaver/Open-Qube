@@ -20,12 +20,16 @@ public:
     ~EnemyGroup() = default;
 
     // SPIN THEM ALLLLLLLLLLLLLLLL
-    void spin();
+    void spin(Enemy &enemy);
 
     // Update all the health meters
-    void updateHealthMeters();
+    void updateHealthMeters(Enemy &enemy);
 
-    void contact(Qube &qube);
+    void contact(Qube &qube, Enemy &enemy);
+
+    void move(Qube &qube, Enemy &enemy);
+
+    void update(Qube &qube);
 
 private:
     // Generate random numbers (may need to move)

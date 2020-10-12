@@ -24,9 +24,10 @@ public:
     void initialize(unsigned int radius, unsigned int points, unsigned int lvl,
                     sf::Vector2f coords);
 
-    void findNextCoordinates();
+    // Find coordinates if moving towards a specific entity
+    sf::Vector2f findNextCoordinates(Entity &entity);
 
-    void run(sf::Vector2f run_dir);
+    void run(const sf::Vector2f &run_dir);
 
     void spin();
 
