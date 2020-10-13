@@ -76,7 +76,7 @@ private:
     sf::Clock fps_clock;
 
     // The fps variable
-    int fps{};
+    int fps{60};
 };
 
 #endif

@@ -14,7 +14,7 @@ Application::Application()
             sf::Vector2f(window.getView().getSize().x / 2 + 50,
                          window.getView().getSize().y / 2)),*/
 
-      enemies(1000, window),
+      enemies(500, window),
 
       modes(), calibri(), run_dir(0, 0), player_info(), start_text(),
       resized_view(), fps_clock() {
@@ -131,27 +131,27 @@ void Application::loopGame() {
 
             run_dir.y += run_distance;
 
-        // Update the player's thingies
-        qube.regenerate();
-        qube.updateHealthMeter(window);
-        qube.run(run_dir);
-        qube.spin(fps);
-
-        enemies.update(qube);
-
-        moveView(run_dir);
-
-        drawEntities();
-
         while (!started) {
             window.draw(start_text);
             window.display();
             started = Keyboard::isKeyPressed(Keyboard::Key::Enter);
         }
 
+        // Update the player's thingies
+        qube.regenerate();
+        qube.updateHealthMeter(window);
+        qube.run(run_dir);
+        qube.spin(fps);
+
+        enemies.update(qube, fps);
+
+        moveView(run_dir);
+
+        drawEntities();
+
         fps = std::floor(1 / fps_clock.restart().asSeconds());
 
-        run_distance = (60.0 / fps) * 10;
+        run_distance = (60.0F / fps) * 10;
     }
 }
 

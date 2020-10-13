@@ -1,15 +1,16 @@
 #include "Entity.hpp"
 
+#include <cmath>
+
 Entity::Entity(sf::Vector2f &coords, float radius, Teams team, int lvl,
                int max_health)
     : entity_id(x++), coordinates(coords), scale(sf::Vector2f(1, 1)),
       radius(radius), team(team), level(lvl), health(max_health),
-      max_health(max_health), health_meter(coords, radius),
-      hitbox(coords.x - .8 * radius, coords.y - .8 * radius, radius * 2 * .8, radius * 2 * .8) {}
+      max_health(max_health), health_meter(coords, radius) {}
 
 Entity::Entity()
     : entity_id(x++), coordinates(), scale(sf::Vector2f(1, 1)), radius(),
-      team(), level(), health(), max_health(), health_meter(), hitbox() {}
+      team(), level(), health(), max_health(), health_meter() {}
 
 sf::Vector2f Entity::getCoordinates() { return coordinates; }
 
@@ -23,6 +24,11 @@ void Entity::updateHealthMeter() {
 
 Teams Entity::getTeam() { return team; }
 
-sf::FloatRect Entity::getHitbox() { return hitbox; }
-
 void Entity::damage(float damage_by) { health -= damage_by; }
+
+float Entity::distFrom(Entity &entity) {
+    return sqrt(((coordinates.x - entity.getCoordinates().x) *
+                 (coordinates.x - entity.getCoordinates().x)) +
+                ((coordinates.y - entity.getCoordinates().y) *
+                 (coordinates.y - entity.getCoordinates().y)));
+}

@@ -22,18 +22,23 @@ public:
 
     // Initialize after creation
     void initialize(unsigned int radius, unsigned int points, unsigned int lvl,
-                    sf::Vector2f coords);
+                    sf::Vector2f coords, int seed);
 
-    // Find coordinates if moving towards a specific entity
-    sf::Vector2f findNextCoordinates(Entity &entity);
-
-    void run(const sf::Vector2f &run_dir);
+    // Move the enemy
+    void run(Entity &entity, int fps);
 
     void spin();
 
     virtual void
     draw(sf::RenderTarget &target,
          sf::RenderStates states) const;
+
+    sf::FloatRect getHitbox();
+
+    private:
+    sf::Clock move_clock;
+
+    int seed{};
 };
 
 #endif

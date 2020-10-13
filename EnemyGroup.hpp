@@ -6,7 +6,6 @@
 #define ENEMYGROUP_HPP
 
 #include <SFML/Graphics.hpp>
-#include <random>
 #include <vector>
 
 #include "Enemy.hpp"
@@ -27,20 +26,15 @@ public:
 
     void contact(Qube &qube, Enemy &enemy);
 
-    void move(Qube &qube, Enemy &enemy);
+    void move(Qube &qube, Enemy &enemy, int fps);
 
-    void update(Qube &qube);
+    void update(Qube &qube, int fps);
 
 private:
-    // Generate random numbers (may need to move)
-    float genRand(float low, float high);
-
     // Dynamic array of all the enemies
     std::vector<Enemy> enemies;
 
-    virtual void
-    draw(sf::RenderTarget &target,
-         sf::RenderStates states) const;
+    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
 
 #endif

@@ -49,6 +49,9 @@ public:
 
     void updateHealthMeter(sf::RenderWindow &window);
 
+    //Get the hitbox
+    sf::FloatRect getHitbox();
+
     // Angles of roation (combine and divide by 2 to get north-west, etc.)
     enum class FacingDirections : int {
         North = 0,

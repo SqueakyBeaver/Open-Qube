@@ -46,14 +46,14 @@ public:
     // Update the health meter
     void updateHealthMeter();
 
-    // Get the hitbox
-    sf::FloatRect getHitbox();
-
     // Get the team
     Teams getTeam();
 
     // Damage the entity
     void damage(float damage_by);
+
+    // Distance from another entity
+    float distFrom(Entity &entity);
 
     // More to come
 
@@ -81,9 +81,6 @@ protected:
 
     // The health meters of the entities
     HealthBar health_meter;
-
-    // Hitbox
-    sf::FloatRect hitbox;
 };
 
 #endif

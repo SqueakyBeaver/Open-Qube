@@ -67,9 +67,6 @@ void Qube::run(sf::Vector2f &run_for) {
     coordinates = qube_hero.getPosition();
     health_meter.update(max_health, health, coordinates, radius);
     run_for = sf::Vector2f(0, 0);
-
-    hitbox.left = (coordinates.x - .8 * radius);
-    hitbox.top = (coordinates.y - .8 * radius);
 }
 
 void Qube::spin(int fps) {
@@ -80,7 +77,7 @@ void Qube::spin(int fps) {
         rotate_speed = 0;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
-        rotate_brake += 25 * (60.0F/fps);
+        rotate_brake += 25 * (60.0F / fps);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl)) {
@@ -150,6 +147,8 @@ void Qube::updateHealthMeter(sf::RenderWindow &window) {
     health_meter.update(max_health, health, coordinates, radius);
     health_bar.update(max_health, health, window);
 }
+
+sf::FloatRect Qube::getHitbox() { return qube_hero.getGlobalBounds(); }
 
 void Qube::draw(sf::RenderTarget &target,
                 sf::RenderStates states = sf::RenderStates::Default) const {
