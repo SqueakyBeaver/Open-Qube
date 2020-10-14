@@ -40,11 +40,10 @@ Application::Application()
 void Application::loopGame() {
     // Distance to run
     int run_distance{5};
-    while (window.isOpen()) {
-        if (qube.getHealth() <= 0 ||
-            Keyboard::isKeyPressed(Keyboard::Key::Backspace)) {
-            gameOver();
-            continue;
+    while (!(qube.getHealth() < 0 || enemies.getEnemyCount() <= 0)) {
+        if (Keyboard::isKeyPressed(Keyboard::Key::Backspace)) {
+            qube.setHealth(0);
+            break;
         }
 
         // Gather what happpened
@@ -106,6 +105,8 @@ void Application::loopGame() {
                 window.setVerticalSyncEnabled(true);
                 resized = false;
             }
+            window.clear(sf::Color(138, 127, 128));
+            continue;
         }
 
         if ((Keyboard::isKeyPressed(Keyboard::Key::Left) ||
@@ -143,7 +144,7 @@ void Application::loopGame() {
         qube.run(run_dir);
         qube.spin(fps);
 
-        enemies.update(qube, fps);
+        enemies.update(qube, fps, window);
 
         moveView(run_dir);
 
@@ -190,9 +191,9 @@ void Application::moveView(const sf::Vector2f &move_dir) {
     window.setView(view);
 }
 
-void Application::gameOver() {
+void Application::gameOver(sf::String &&end_string) {
     bool end{};
-    sf::Text row1("Game Over", calibri, 60);
+    sf::Text row1(end_string, calibri, 60);
     sf::Text row2("Press enter to continue", calibri);
 
     row1.setOrigin(
@@ -220,4 +221,14 @@ void Application::gameOver() {
         window.display();
     }
     window.close();
+}
+
+Application::~Application() {
+    if (qube.getHealth() <= 0) {
+        gameOver("You lost");
+    } else if (enemies.getEnemyCount() == 0) {
+        gameOver("You won");
+    } else {
+        gameOver("Idk what happened tbh");
+    }
 }

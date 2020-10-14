@@ -21,11 +21,11 @@ public:
     Enemy();
 
     // Initialize after creation
-    void initialize(unsigned int radius, unsigned int points, unsigned int lvl,
+    void initialize(unsigned int lvl,
                     sf::Vector2f coords);
 
     // Move the enemy
-    void run(Entity &entity, int fps);
+    void run(Entity &entity, int fps, sf::RenderWindow &window);
 
     // Sping the enemy
     void spin();

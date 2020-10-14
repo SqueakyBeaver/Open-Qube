@@ -46,7 +46,11 @@ public:
     void damage(float damage_by);
 
     // Distance from another entity
-    float distFrom(Entity &entity); // Might not need (wish I had remembered this earlier)
+    float distFrom(
+        Entity &entity); // Might not need (wish I had remembered this earlier)
+
+    // Set the health (don't use a lot)
+    void setHealth(float new_health);
 
     // More to come
 

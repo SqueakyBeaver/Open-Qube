@@ -4,7 +4,7 @@
 #include <chrono>
 #include <random>
 
-namespace ran_gen {
+namespace rand_gen {
 // Generate a random number
 float genRand(float low, float high);
 } // namespace ran_gen

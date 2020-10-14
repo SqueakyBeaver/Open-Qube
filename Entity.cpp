@@ -4,13 +4,13 @@
 
 Entity::Entity(sf::Vector2f &coords, float radius, Teams team, int lvl,
                int max_health)
-    : coordinates(coords), scale(sf::Vector2f(1, 1)),
-      radius(radius), team(team), level(lvl), health(max_health),
-      max_health(max_health), health_meter(coords, radius) {}
+    : coordinates(coords), scale(sf::Vector2f(1, 1)), radius(radius),
+      team(team), level(lvl), health(max_health), max_health(max_health),
+      health_meter(coords, radius) {}
 
 Entity::Entity()
-    : coordinates(), scale(sf::Vector2f(1, 1)), radius(),
-      team(), level(), health(), max_health(), health_meter() {}
+    : coordinates(), scale(sf::Vector2f(1, 1)), radius(), team(), level(),
+      health(), max_health(), health_meter() {}
 
 sf::Vector2f Entity::getCoordinates() { return coordinates; }
 
@@ -32,3 +32,5 @@ float Entity::distFrom(Entity &entity) {
                 ((coordinates.y - entity.getCoordinates().y) *
                  (coordinates.y - entity.getCoordinates().y)));
 }
+
+void Entity::setHealth(float new_health) { health = new_health; }

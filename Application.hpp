@@ -32,10 +32,10 @@ public:
     // Move the window
     void moveView(const sf::Vector2f &move_dir);
 
-    void gameOver();
+    void gameOver(sf::String &&end_string);
 
     // end the game
-    ~Application() = default;
+    ~Application();
 
 protected:
     // Window to draw to
@@ -44,8 +44,7 @@ protected:
     // The main character
     Qube qube;
 
-    // The enemy
-    // Enemy enemy;
+    // The enemies
     EnemyGroup enemies;
 
     // If the window is resized

@@ -5,18 +5,14 @@ EnemyGroup::EnemyGroup(int enemy_count, sf::RenderWindow &window)
     : enemies(enemy_count) {
     for (Enemy &enemy : enemies) {
         enemy.initialize(
-            ran_gen::genRand(40, 50), ran_gen::genRand(3, 13),
-            ran_gen::genRand(1, 20),
+            rand_gen::genRand(5, 20),
             sf::Vector2f(
-                ran_gen::genRand(300, 20 * window.getView().getSize().x - 300),
-                ran_gen::genRand(300, 20 * window.getView().getSize().y - 300)));
+                rand_gen::genRand(300, 20 * window.getView().getSize().x - 300),
+                rand_gen::genRand(300,
+                                  20 * window.getView().getSize().y - 300)));
         // To anyone who reads this: I am so very sorry
     }
 }
-
-void EnemyGroup::spin(Enemy &enemy) { enemy.spin(); }
-
-void EnemyGroup::updateHealthMeters(Enemy &enemy) { enemy.updateHealthMeter(); }
 
 // Need to overload if I will add other entities
 void EnemyGroup::contact(Qube &qube, Enemy &enemy) {
@@ -26,18 +22,16 @@ void EnemyGroup::contact(Qube &qube, Enemy &enemy) {
     }
 }
 
-void EnemyGroup::move(Qube &qube, Enemy &enemy, int fps) {
-    enemy.run(qube, fps);
-}
-
-void EnemyGroup::update(Qube &qube, int fps) {
+void EnemyGroup::update(Qube &qube, int fps, sf::RenderWindow &window) {
     for (Enemy &enemy : enemies) {
-        move(qube, enemy, fps);
-        spin(enemy);
+        enemy.run(qube, fps, window);
+        //enemy.spin();
         contact(qube, enemy);
-        updateHealthMeters(enemy);
+        enemy.updateHealthMeter();
     }
 }
+
+std::size_t EnemyGroup::getEnemyCount() { return enemies.size(); }
 
 void EnemyGroup::draw(
     sf::RenderTarget &target,
