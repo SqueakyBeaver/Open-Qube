@@ -28,4 +28,8 @@ Left shift (while moving) | Dash
 
 ## Supporting
 Want to help support development?\
-The best way you can do this is by contributing and/or spreading the word
+The best way you can do this is by making a merge/pull request and spreading the word!
+
+## So.. What is the Point of This?
+Really this thing is not going anywhere unless a lot of people want it to.\
+All I'm doing is getting some basics of gamedev here.
