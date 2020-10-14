@@ -11,8 +11,7 @@ EnemyGroup::EnemyGroup(int enemy_count, sf::RenderWindow &window)
             sf::Vector2f(
                 ran_gen::genRand(300, 20 * window.getView().getSize().x - 300),
                 ran_gen::genRand(300, 20 * window.getView().getSize().y - 300)),
-            seed);
-        ++seed;
+            seed++);
         // To anyone who reads this: I am so very sorry
     }
 }

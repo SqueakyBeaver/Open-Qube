@@ -7,7 +7,7 @@ float ran_gen::genRand(float low, float high) {
 }
 
 float ran_gen::genRand(float low, float high, int seed) {
-    static std::mt19937_64 random_gen(seed);
+    std::mt19937_64 random_gen(seed);
     std::uniform_real_distribution<double> generate(low, high);
     return generate(random_gen);
 }

@@ -39,6 +39,9 @@ public:
     sf::Clock move_clock;
 
     int seed{};
+
+    // Gotta have it here
+    sf::Vector2f move_dir;
 };
 
 #endif
