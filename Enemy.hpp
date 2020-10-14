@@ -13,33 +13,32 @@
 
 class Enemy : public sf::Drawable, public Entity {
 public:
+    // Constructor
     Enemy(unsigned int radius, unsigned int points, unsigned int lvl,
           sf::Vector2f coords);
 
-    sf::CircleShape enemy_body;
-
-    Enemy() : enemy_body(){};
+    // I must appease the compiler gods
+    Enemy();
 
     // Initialize after creation
     void initialize(unsigned int radius, unsigned int points, unsigned int lvl,
-                    sf::Vector2f coords, int seed);
+                    sf::Vector2f coords);
 
     // Move the enemy
     void run(Entity &entity, int fps);
 
+    // Sping the enemy
     void spin();
 
-    virtual void
-    draw(sf::RenderTarget &target,
-         sf::RenderStates states) const;
-
+    // Get the hitbox of the enemy
     sf::FloatRect getHitbox();
 
-    private:
-    sf::Clock move_clock;
-
-    int seed{};
-
+    // Draw the enemy
+    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+protected:
+    // Body of the enemy
+    sf::CircleShape enemy_body;
+private:
     // Gotta have it here
     sf::Vector2f move_dir;
 };

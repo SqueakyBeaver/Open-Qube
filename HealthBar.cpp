@@ -17,6 +17,8 @@ HealthBar::HealthBar(const sf::RenderWindow &window) : bar(), bar_outline() {
     bar_outline.setSize(sf::Vector2f((((window.getSize().x / 4) * 2) + 4), 29));
 }
 
+HealthBar::HealthBar() : bar(), bar_outline() {}
+
 // coordinates: Entity's coordinates
 // Radius: radius of entitiy
 HealthBar::HealthBar(sf::Vector2f &coordinates, float radius)

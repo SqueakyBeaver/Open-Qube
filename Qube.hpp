@@ -16,18 +16,12 @@
 
 class Qube : public sf::Drawable, public Entity {
 public:
-    // Default constructor
-    Qube();
-
     // initial coordinates, length, and width
     Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window,
          int lvl);
 
-    // Sprite for the hero
-    sf::Sprite qube_hero{};
-
-    // Large health meter
-    HealthBar health_bar;
+    // Default constructor
+    Qube();
 
     // run in a direction
     void run(sf::Vector2f &run_for);
@@ -49,7 +43,7 @@ public:
 
     void updateHealthMeter(sf::RenderWindow &window);
 
-    //Get the hitbox
+    // Get the hitbox
     sf::FloatRect getHitbox();
 
     // Angles of roation (combine and divide by 2 to get north-west, etc.)
@@ -60,9 +54,15 @@ public:
         West = 270,
     };
 
+    // Whether the player is sprinting
     bool sprinting{};
 
 protected:
+    // Sprite for the hero
+    sf::Sprite qube_hero{};
+
+    // Large health meter
+    HealthBar health_bar;
     // Speed of the rotation
     float rotate_speed{};
 
@@ -79,6 +79,7 @@ protected:
     sf::Texture hero_texture;
 
 private:
+    // Draw the sprite, entity health meter, and large health meter
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
 

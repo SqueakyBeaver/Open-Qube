@@ -17,7 +17,8 @@ public:
     // For the small entity meters
     HealthBar(sf::Vector2f &coordinates, float radius);
 
-    HealthBar() : bar(), bar_outline(){};
+    // Default constructor I guess
+    HealthBar();
 
     // For large health bar
     void update(float max_health, float current_health,
@@ -28,11 +29,15 @@ public:
                 const sf::Vector2f &coordinates, float radius);
 
 protected:
+    // The red part
     sf::RectangleShape bar;
+
+    // Outline of the health meter
     sf::RectangleShape bar_outline;
 
 private:
     virtual void
+    // Draw the health meter and the outline
     draw(sf::RenderTarget &target,
          sf::RenderStates states) const;
 };

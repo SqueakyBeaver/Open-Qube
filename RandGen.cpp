@@ -5,9 +5,3 @@ float ran_gen::genRand(float low, float high) {
     std::uniform_real_distribution<double> generate(low, high);
     return generate(random_gen);
 }
-
-float ran_gen::genRand(float low, float high, int seed) {
-    std::mt19937_64 random_gen(seed);
-    std::uniform_real_distribution<double> generate(low, high);
-    return generate(random_gen);
-}

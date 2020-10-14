@@ -37,7 +37,7 @@ public:
     // end the game
     ~Application() = default;
 
-private:
+protected:
     // Window to draw to
     sf::RenderWindow window;
 

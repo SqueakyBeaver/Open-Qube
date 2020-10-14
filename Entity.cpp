@@ -4,12 +4,12 @@
 
 Entity::Entity(sf::Vector2f &coords, float radius, Teams team, int lvl,
                int max_health)
-    : entity_id(x++), coordinates(coords), scale(sf::Vector2f(1, 1)),
+    : coordinates(coords), scale(sf::Vector2f(1, 1)),
       radius(radius), team(team), level(lvl), health(max_health),
       max_health(max_health), health_meter(coords, radius) {}
 
 Entity::Entity()
-    : entity_id(x++), coordinates(), scale(sf::Vector2f(1, 1)), radius(),
+    : coordinates(), scale(sf::Vector2f(1, 1)), radius(),
       team(), level(), health(), max_health(), health_meter() {}
 
 sf::Vector2f Entity::getCoordinates() { return coordinates; }

@@ -3,15 +3,13 @@
 
 EnemyGroup::EnemyGroup(int enemy_count, sf::RenderWindow &window)
     : enemies(enemy_count) {
-    int seed{};
     for (Enemy &enemy : enemies) {
         enemy.initialize(
             ran_gen::genRand(40, 50), ran_gen::genRand(3, 13),
             ran_gen::genRand(1, 20),
             sf::Vector2f(
                 ran_gen::genRand(300, 20 * window.getView().getSize().x - 300),
-                ran_gen::genRand(300, 20 * window.getView().getSize().y - 300)),
-            seed++);
+                ran_gen::genRand(300, 20 * window.getView().getSize().y - 300)));
         // To anyone who reads this: I am so very sorry
     }
 }

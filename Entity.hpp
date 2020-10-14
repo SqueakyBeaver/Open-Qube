@@ -19,20 +19,13 @@ enum class Teams {
 };
 
 class Entity {
-private:
-    // Assigned to id
-    static inline unsigned int x; // Should not be negative
-
 public:
-    // Id of the entity
-    int entity_id{};
-
+    // Constructor
     Entity(sf::Vector2f &coords, float radius, Teams team, int lvl,
            int max_health);
 
+    // Default constructor?
     Entity();
-
-    virtual ~Entity() {}
 
     // Get the coordinates
     sf::Vector2f getCoordinates(); // I gotta apease stuff
@@ -53,7 +46,7 @@ public:
     void damage(float damage_by);
 
     // Distance from another entity
-    float distFrom(Entity &entity);
+    float distFrom(Entity &entity); // Might not need (wish I had remembered this earlier)
 
     // More to come
 
@@ -79,7 +72,7 @@ protected:
     // Entity's maximum health
     float max_health;
 
-    // The health meters of the entities
+    // The health meters of the entity
     HealthBar health_meter;
 };
 

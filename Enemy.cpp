@@ -12,8 +12,10 @@ Enemy::Enemy(unsigned int radius, unsigned int points, unsigned int lvl,
     enemy_body.setOrigin(radius, radius);
 }
 
+Enemy::Enemy() : enemy_body() {}
+
 void Enemy::initialize(unsigned int r, unsigned int points, unsigned int lvl,
-                       sf::Vector2f coords, int seed) {
+                       sf::Vector2f coords) {
     radius = r;
     coordinates = coords;
     team = Teams::Enemy;
@@ -21,7 +23,6 @@ void Enemy::initialize(unsigned int r, unsigned int points, unsigned int lvl,
     max_health = lvl * 25;
     health = max_health;
     health_meter = HealthBar(coords, r);
-    seed = seed;
 
     enemy_body.setRadius(r);
     enemy_body.setPointCount(points);
@@ -33,14 +34,6 @@ void Enemy::initialize(unsigned int r, unsigned int points, unsigned int lvl,
 } // Dang, that's a lot of stuff
 
 void Enemy::spin() { enemy_body.rotate(50 * ((level % 4) + 1)); }
-
-void Enemy::draw(sf::RenderTarget &target,
-                 sf::RenderStates states = sf::RenderStates::Default) const {
-    if (health > 0) {
-        target.draw(enemy_body, states);
-        target.draw(health_meter, states);
-    }
-}
 
 void Enemy::run(Entity &entity, int fps) {
     static float one_direction_for{};
@@ -80,3 +73,11 @@ void Enemy::run(Entity &entity, int fps) {
 }
 
 sf::FloatRect Enemy::getHitbox() { return enemy_body.getGlobalBounds(); }
+
+void Enemy::draw(sf::RenderTarget &target,
+                 sf::RenderStates states = sf::RenderStates::Default) const {
+    if (health > 0) {
+        target.draw(enemy_body, states);
+        target.draw(health_meter, states);
+    }
+}
