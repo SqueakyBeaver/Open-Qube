@@ -28,7 +28,7 @@ public:
     void run(Entity &entity, int fps, sf::RenderWindow &window);
 
     // Sping the enemy
-    void spin();
+    void spin(float factor);
 
     // Get the hitbox of the enemy
     sf::FloatRect getHitbox();

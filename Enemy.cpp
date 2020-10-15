@@ -14,8 +14,7 @@ Enemy::Enemy(unsigned int radius, unsigned int points, unsigned int lvl,
 
 Enemy::Enemy() : enemy_body() {}
 
-void Enemy::initialize(unsigned int lvl,
-                       sf::Vector2f coords) {
+void Enemy::initialize(unsigned int lvl, sf::Vector2f coords) {
     radius = lvl * 5;
     coordinates = coords;
     team = Teams::Enemy;
@@ -33,7 +32,9 @@ void Enemy::initialize(unsigned int lvl,
     enemy_body.setOrigin(radius, radius);
 } // Dang, that's a lot of stuff
 
-void Enemy::spin() { enemy_body.rotate(50 * ((level % 4) + 1)); }
+void Enemy::spin(float factor = 50) {
+    enemy_body.rotate((level % 4 + 1 ) * factor);
+}
 
 void Enemy::run(Entity &entity, int fps, sf::RenderWindow &window) {
     static float one_direction_for{};
@@ -54,11 +55,13 @@ void Enemy::run(Entity &entity, int fps, sf::RenderWindow &window) {
             enemy_body.move(0, 5.0F * (60.0F / fps));
         if (coordinates.y > entity.getCoordinates().y + 10)
             enemy_body.move(0, -5.0F * (60.0F / fps));
+
+        spin(50 * (60.0F / fps));
     } else {
         if (move_dir == sf::Vector2f(0, 0) && one_direction_for == 0) {
-            move_dir =
-                sf::Vector2f(static_cast<int>(rand_gen::genRand(-100, 100)) % 5,
-                             static_cast<int>(rand_gen::genRand(-100, 100)) % 5);
+            move_dir = sf::Vector2f(
+                static_cast<int>(rand_gen::genRand(-100, 100)) % 5,
+                static_cast<int>(rand_gen::genRand(-100, 100)) % 5);
         }
         if (one_direction_for < 50 * (60.0F / fps)) {
             enemy_body.move(move_dir * (60.0F / fps));
@@ -69,6 +72,8 @@ void Enemy::run(Entity &entity, int fps, sf::RenderWindow &window) {
             move_dir = sf::Vector2f(0, 0);
         }
         enemy_body.setFillColor(sf::Color(100, 17, 200, 100));
+
+        spin(.25 * (60.0F / fps));
     }
     coordinates = enemy_body.getPosition();
 }

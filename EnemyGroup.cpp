@@ -25,7 +25,6 @@ void EnemyGroup::contact(Qube &qube, Enemy &enemy) {
 void EnemyGroup::update(Qube &qube, int fps, sf::RenderWindow &window) {
     for (Enemy &enemy : enemies) {
         enemy.run(qube, fps, window);
-        //enemy.spin();
         contact(qube, enemy);
         enemy.updateHealthMeter();
     }

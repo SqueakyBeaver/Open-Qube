@@ -35,7 +35,7 @@ public:
     void gameOver(sf::String &&end_string);
 
     // end the game
-    ~Application();
+    void endGame();
 
 protected:
     // Window to draw to

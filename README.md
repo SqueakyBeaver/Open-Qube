@@ -1,3 +1,6 @@
+# NOTICE
+As of October 10th, 2020, I am dropping this (at least for a little while) because I have no idea where this would go. I will be probably doing some different projects. If you would like to see this active again, make an issue or something and get me motivated. :)
+
 # Qube-Adventure
 Just a pretty simple game written in C++ and SFML
 

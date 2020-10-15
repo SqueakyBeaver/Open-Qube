@@ -40,7 +40,8 @@ Application::Application()
 void Application::loopGame() {
     // Distance to run
     int run_distance{5};
-    while (!(qube.getHealth() < 0 || enemies.getEnemyCount() <= 0)) {
+    while (!(qube.getHealth() < 0 || enemies.getEnemyCount() <= 0) &&
+           window.isOpen()) {
         if (Keyboard::isKeyPressed(Keyboard::Key::Backspace)) {
             qube.setHealth(0);
             break;
@@ -223,11 +224,13 @@ void Application::gameOver(sf::String &&end_string) {
     window.close();
 }
 
-Application::~Application() {
+void Application::endGame() {
     if (qube.getHealth() <= 0) {
         gameOver("You lost");
     } else if (enemies.getEnemyCount() == 0) {
         gameOver("You won");
+    } else if (!window.isOpen()) {
+        return;
     } else {
         gameOver("Idk what happened tbh");
     }

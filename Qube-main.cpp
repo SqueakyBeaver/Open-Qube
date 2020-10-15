@@ -19,5 +19,7 @@ int main() {
 
     game_application.loopGame();
 
+    game_application.endGame();
+
     return 0;
 }
