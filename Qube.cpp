@@ -137,8 +137,6 @@ void Qube::regenerate() {
         healing = false;
 }
 
-float Qube::getHealth() { return health; }
-
 bool Qube::isSpinning() { return spinning; }
 
 float Qube::getSpinSpeed() { return rotate_speed; }

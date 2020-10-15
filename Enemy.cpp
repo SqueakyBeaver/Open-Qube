@@ -14,6 +14,11 @@ Enemy::Enemy(unsigned int radius, unsigned int points, unsigned int lvl,
 
 Enemy::Enemy() : enemy_body() {}
 
+void Enemy::destroy() {
+    enemy_body.setRadius(0);
+    
+}
+
 void Enemy::initialize(unsigned int lvl, sf::Vector2f coords) {
     radius = lvl * 5;
     coordinates = coords;

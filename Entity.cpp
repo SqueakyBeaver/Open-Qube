@@ -34,3 +34,5 @@ float Entity::distFrom(Entity &entity) {
 }
 
 void Entity::setHealth(float new_health) { health = new_health; }
+
+float Entity::getHealth() { return health; }

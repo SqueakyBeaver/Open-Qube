@@ -20,9 +20,11 @@ public:
     // I must appease the compiler gods
     Enemy();
 
+    // Destroy the enemy
+    void destroy();
+
     // Initialize after creation
-    void initialize(unsigned int lvl,
-                    sf::Vector2f coords);
+    void initialize(unsigned int lvl, sf::Vector2f coords);
 
     // Move the enemy
     void run(Entity &entity, int fps, sf::RenderWindow &window);
@@ -35,9 +37,11 @@ public:
 
     // Draw the enemy
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+
 protected:
     // Body of the enemy
     sf::CircleShape enemy_body;
+
 private:
     // Gotta have it here
     sf::Vector2f move_dir;

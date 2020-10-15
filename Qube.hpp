@@ -32,9 +32,6 @@ public:
     // Regenerate
     void regenerate();
 
-    // Get the Health
-    float getHealth();
-
     // Returns whether the entity is spinning
     bool isSpinning();
 

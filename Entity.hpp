@@ -52,6 +52,9 @@ public:
     // Set the health (don't use a lot)
     void setHealth(float new_health);
 
+    // Get the Health
+    float getHealth();
+
     // More to come
 
 protected:
