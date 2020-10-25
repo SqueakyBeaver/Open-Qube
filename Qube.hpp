@@ -24,7 +24,7 @@ public:
     Qube();
 
     // run in a direction
-    void run(sf::Vector2f &run_for);
+    void run(sf::Vector2f &run_dir, sf::RenderWindow &window);
 
     // YOU SPIN ME RIGHT ROUND
     void spin(int fps);
@@ -56,7 +56,7 @@ public:
 
 protected:
     // Sprite for the hero
-    sf::Sprite qube_hero{};
+    sf::Sprite body{};
 
     // Large health meter
     HealthBar health_bar;

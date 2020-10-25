@@ -110,27 +110,20 @@ void Application::loopGame() {
             continue;
         }
 
-        if ((Keyboard::isKeyPressed(Keyboard::Key::Left) ||
-             Keyboard::isKeyPressed(Keyboard::Key::A)) &&
-            qube.getCoordinates().x > 0 + qube.getRadius())
+        if (Keyboard::isKeyPressed(Keyboard::Key::Left) ||
+            Keyboard::isKeyPressed(Keyboard::Key::A))
             run_dir.x -= run_distance;
 
-        if ((Keyboard::isKeyPressed(Keyboard::Key::Right) ||
-             Keyboard::isKeyPressed(Keyboard::Key::D)) &&
-            qube.getCoordinates().x <
-                window.getView().getSize().x * 50 - qube.getRadius())
+        if (Keyboard::isKeyPressed(Keyboard::Key::Right) ||
+            Keyboard::isKeyPressed(Keyboard::Key::D))
             run_dir.x += run_distance;
 
-        if ((Keyboard::isKeyPressed(Keyboard::Key::Up) ||
-             Keyboard::isKeyPressed(Keyboard::Key::W)) &&
-            qube.getCoordinates().y > 0 + qube.getRadius())
+        if (Keyboard::isKeyPressed(Keyboard::Key::Up) ||
+            Keyboard::isKeyPressed(Keyboard::Key::W))
             run_dir.y -= run_distance;
 
-        if ((Keyboard::isKeyPressed(Keyboard::Key::Down) ||
-             Keyboard::isKeyPressed(Keyboard::Key::S)) &&
-            qube.getCoordinates().y <
-                window.getView().getSize().y * 50 - qube.getRadius())
-
+        if (Keyboard::isKeyPressed(Keyboard::Key::Down) ||
+            Keyboard::isKeyPressed(Keyboard::Key::S))
             run_dir.y += run_distance;
 
         while (!started) {
@@ -142,7 +135,7 @@ void Application::loopGame() {
         // Update the player's thingies
         qube.regenerate();
         qube.updateHealthMeter(window);
-        qube.run(run_dir);
+        qube.run(run_dir, window);
         qube.spin(fps);
 
         enemies.update(qube, fps, window);

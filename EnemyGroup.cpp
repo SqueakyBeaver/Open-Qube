@@ -27,10 +27,10 @@ void EnemyGroup::contact(Qube &qube, Enemy &enemy) {
 void EnemyGroup::update(Qube &qube, int fps, sf::RenderWindow &window) {
     for (Enemy &enemy : enemies) {
         if (enemy.getHealth() > 0) {
-        enemy.run(qube, fps, window);
-        contact(qube, enemy);
-        enemy.updateHealthMeter();
-        } else {
+            enemy.run(qube, fps, window);
+            contact(qube, enemy);
+            enemy.updateHealthMeter();
+        } else if (enemy.getHealth() <= 0) {
             enemy.destroy();
         }
     }

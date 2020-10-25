@@ -8,7 +8,7 @@
 
 Qube::Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window,
            int lvl)
-    : Entity(coords, 40, Teams::Player, lvl, 100), health_bar(draw_window),
+    : Entity(coords, 20, Teams::Player, lvl, 100), health_bar(draw_window),
       hero_texture()
 
 {
@@ -16,9 +16,9 @@ Qube::Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window,
     if (!hero_texture.loadFromFile(file)) {
         std::exit(2);
     } else {
-        qube_hero.setTexture(hero_texture);
-        qube_hero.setOrigin(radius, radius);
-        qube_hero.setPosition(draw_window.mapCoordsToPixel(coords).x,
+        body.setTexture(hero_texture);
+        body.setOrigin(radius, radius);
+        body.setPosition(draw_window.mapCoordsToPixel(coords).x,
                               draw_window.mapCoordsToPixel(coords).y);
     }
 
@@ -26,47 +26,72 @@ Qube::Qube(sf::Vector2f coords, std::string file, sf::RenderWindow &draw_window,
     max_health = 100;
 }
 
-void Qube::run(sf::Vector2f &run_for) {
+void Qube::run(sf::Vector2f &run_dir, sf::RenderWindow &window) {
     float sprint_multi = 1;
     if (sprinting)
         sprint_multi = 10;
-    qube_hero.move(run_for * sprint_multi);
+
+    run_dir *= sprint_multi;
+
+    if (run_dir.x > 0) {
+        if (coordinates.x + run_dir.x + radius >
+            window.getView().getSize().x * 50) {
+            run_dir.x = 0;
+        }
+    } else if (run_dir.x < 0) {
+        if (coordinates.x + run_dir.x - radius < 0) {
+            run_dir.x = 0;
+        }
+    }
+
+    if (run_dir.y > 0) {
+        if (coordinates.y + run_dir.y + radius >
+            window.getView().getSize().y * 50) {
+            run_dir.y = 0;
+        }
+    } else if (run_dir.y < 0) {
+        if (coordinates.y + run_dir.y - radius < 0) {
+            run_dir.y = 0;
+        }
+    }
+
+    body.move(run_dir);
+
     if (!spinning) {
-        if (run_for.x || run_for.y) {
-            if (run_for.x) {
-                if (run_for.x > 0)
+        if (run_dir.x || run_dir.y) {
+            if (run_dir.x) {
+                if (run_dir.x > 0)
                     angle_rotation +=
                         static_cast<float>(FacingDirections::East);
-                else if (run_for.x < 0)
+                else if (run_dir.x < 0)
                     angle_rotation +=
                         static_cast<float>(FacingDirections::West);
             }
 
-            if (run_for.y) {
-                if (run_for.y > 0)
+            if (run_dir.y) {
+                if (run_dir.y > 0)
                     angle_rotation +=
                         static_cast<float>(FacingDirections::South);
-                else if (run_for.y < 0)
+                else if (run_dir.y < 0)
                     angle_rotation +=
                         static_cast<float>(FacingDirections::North);
             }
 
-            if (run_for.x && run_for.y) {
+            if (run_dir.x && run_dir.y) {
                 angle_rotation /= 2.0;
 
-                if (run_for.x < 0 &&
-                    run_for.y < 0) // Whoever looks at this: this is the only
-                                   // way I could think of to make this work
+                if (run_dir.x < 0 &&
+                    run_dir.y < 0)
                     angle_rotation = 315;
             }
 
-            qube_hero.setRotation(angle_rotation);
+            body.setRotation(angle_rotation);
             angle_rotation = 0;
         }
     }
-    coordinates = qube_hero.getPosition();
+    coordinates = body.getPosition();
     health_meter.update(max_health, health, coordinates, radius);
-    run_for = sf::Vector2f(0, 0);
+    run_dir = sf::Vector2f(0, 0);
 }
 
 void Qube::spin(int fps) {
@@ -111,7 +136,7 @@ void Qube::spin(int fps) {
     if (rotate_speed - rotate_brake <= 0)
         spinning = false;
     else
-        qube_hero.rotate(rotate_speed - rotate_brake);
+        body.rotate(rotate_speed - rotate_brake);
 }
 
 void Qube::regenerate() {
@@ -146,11 +171,11 @@ void Qube::updateHealthMeter(sf::RenderWindow &window) {
     health_bar.update(max_health, health, window);
 }
 
-sf::FloatRect Qube::getHitbox() { return qube_hero.getGlobalBounds(); }
+sf::FloatRect Qube::getHitbox() { return body.getGlobalBounds(); }
 
 void Qube::draw(sf::RenderTarget &target,
                 sf::RenderStates states = sf::RenderStates::Default) const {
-    target.draw(qube_hero, states);
+    target.draw(body, states);
     target.draw(health_bar, states);
     target.draw(health_meter, states);
 }

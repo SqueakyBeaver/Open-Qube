@@ -29,8 +29,8 @@ public:
     // Move the enemy
     void run(Entity &entity, int fps, sf::RenderWindow &window);
 
-    // Sping the enemy
-    void spin(float factor);
+    // Make the enemy attack something
+    void attack(Entity &entity, sf::RenderWindow &window);
 
     // Get the hitbox of the enemy
     sf::FloatRect getHitbox();
@@ -40,7 +40,7 @@ public:
 
 protected:
     // Body of the enemy
-    sf::CircleShape enemy_body;
+    sf::CircleShape body;
 
 private:
     // Gotta have it here
