@@ -1,12 +1,9 @@
-# NOTICE
-As of October 10th, 2020, I am dropping this (at least for a little while) because I have no idea where this would go. I will be probably doing some different projects. If you would like to see this active again, make an issue or something and get me motivated. :)
-
-# Qube-Adventure
-Just a pretty simple game written in C++ and SFML
+# Open-Qube
+Just a pretty simple "game" written in C++ and SFML
 
 ## Contributing
 Feel free to make a pull request, but make sure the pull request does not break anything or introduce any new bugs\
-I may deny a pull request because it may break something I have planned. Please, do not feel disheartened if I do this to your pull request. 
+I may deny a pull request because it may break something I have planned. Please, do not feel disheartened if I do this to your pull request.
 
 ## Building
 You need to get a C++ compiler and install the [SFML library](https://en.sfml-dev.org/download/sfml/2.5.1/)\
